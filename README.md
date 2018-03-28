@@ -1,1 +1,1 @@
-# Docker container for xiaomi vaccum dustcloud proxy
+# Docker container for Xiaomi Mi Robot Vacuum dustcloud proxy
