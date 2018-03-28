@@ -1,1 +1,1 @@
-# Docker dontainer for xiaomi vaccum dustcloud proxy
+# Docker container for xiaomi vaccum dustcloud proxy
