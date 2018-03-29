@@ -3,7 +3,7 @@
 Docker container for https://github.com/dgiese/dustcloud
 
 ## Getting Started
-Creates three docker containers
+Creates three docker containers for x86
 - DB Server
 - phpMyAdmin
 - Dustcloud
@@ -39,12 +39,15 @@ execute SQL Query file for database structure creation
 https://github.com/dgiese/dustcloud/blob/master/dustcloud/dustcloud.sql
 ```
 
-### Run dustcloud
+### Run dustcloud persistent
 ```
 docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb -p 80-81:80-81/tcp -p 8053:8053/udp dustcloud
 ```
 
-
+### rund dustcloud interactive
+```
+docker run --rm -it -p 80-81:80-81/tcp -p 8053:8053/udp --link dustcloud_mariadb:mysqldb dustcloud 
+```
 
 
 ### Start all
