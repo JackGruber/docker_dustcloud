@@ -17,16 +17,6 @@ RUN pip3 install \
     python-miio
 
 # copy dustcloud proxy
-#RUN mkdir /dustcloud_git \
-#    && mkdir /dustcloud \
-#    && git clone --depth=1 https://github.com/dgiese/dustcloud.git /dustcloud_git \ 
-#    && cp /dustcloud_git/dustcloud/server.* /dustcloud/ \
-#    && cp /dustcloud_git/dustcloud/build_map.py /dustcloud/ \
-#    && chmod +x /dustcloud/server.sh \
-#    && rm -r /dustcloud_git
-
-
-# copy dustcloud proxy
 WORKDIR /dustcloud
 RUN curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/server.sh --output server.sh \
     && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/server.py --output server.py \
@@ -35,10 +25,8 @@ RUN curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/ser
     && chmod +x /dustcloud/server.sh
 
 
-# IP and password 
+# IP and password
 RUN sed -i -e 's/pymysql.connect("localhost","dustcloud","","dustcloud")/pymysql.connect("localhost","dustcloud","dustcloudpw","dustcloud")/g' server.py \
     && sed -i -e 's/my_cloudserver_ip = "10.0.0.1"/my_cloudserver_ip = "123.123.123.123"/g' server.py
 
 CMD ["bash"]
-
-
