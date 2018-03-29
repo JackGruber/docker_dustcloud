@@ -1,7 +1,7 @@
 FROM debian
 
 RUN apt-get update && apt-get install -y \
-    git \
+    curl \
     python3 \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
@@ -17,15 +17,23 @@ RUN pip3 install \
     python-miio
 
 # copy dustcloud proxy
-RUN mkdir /dustcloud_git \
-    && mkdir /dustcloud \
-    && git clone --depth=1 https://github.com/dgiese/dustcloud.git /dustcloud_git \ 
-    && cp /dustcloud_git/dustcloud/server.* /dustcloud/ \
-    && cp /dustcloud_git/dustcloud/build_map.py /dustcloud/ \
-    && chmod +x /dustcloud/server.sh \
-    && rm -r /dustcloud_git
+#RUN mkdir /dustcloud_git \
+#    && mkdir /dustcloud \
+#    && git clone --depth=1 https://github.com/dgiese/dustcloud.git /dustcloud_git \ 
+#    && cp /dustcloud_git/dustcloud/server.* /dustcloud/ \
+#    && cp /dustcloud_git/dustcloud/build_map.py /dustcloud/ \
+#    && chmod +x /dustcloud/server.sh \
+#    && rm -r /dustcloud_git
 
+
+# copy dustcloud proxy
 WORKDIR /dustcloud
+RUN curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/server.sh --output server.sh \
+    && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/server.py --output server.py \
+    && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/build_map.py --output build_map.py \
+    && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/upload_map.sh --output upload_map.sh \
+    && chmod +x /dustcloud/server.sh
+
 
 # IP and password 
 RUN sed -i -e 's/pymysql.connect("localhost","dustcloud","","dustcloud")/pymysql.connect("localhost","dustcloud","dustcloudpw","dustcloud")/g' server.py \
