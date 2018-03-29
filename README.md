@@ -1,5 +1,16 @@
 # Docker container for Xiaomi Mi Robot Vacuum dustcloud
 
+Docker container for https://github.com/dgiese/dustcloud
+
+## Getting Started
+Creates four docker containers
+- DB Server
+- phpMyAdmin
+- Dustcloud Proxy (Phyton files)
+- Dustcloud backend (PHP files)
+
+
+
 ## Docker
 
 ### Build
@@ -36,3 +47,9 @@ docker run -d --name dustcloud_backend -p 81:80 --link dustcloud_mariadb:mysqldb
 docker run --name dustcloud_proxy -d --link dustcloud_mariadb:mysqldb -p 80:80/tcp -p 8053:8053/udp -p 1121:1121/tcp dustcloud_proxy
 ```
 
+### Commands in dustcloud_proxy
+When starting a bash for the dustcloud_proxy container, all mirobo commands are available.
+```
+mirobo discover --handshake true
+... 
+```
