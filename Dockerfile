@@ -24,9 +24,18 @@ RUN curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/ser
     && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/upload_map.sh --output upload_map.sh \
     && chmod +x /dustcloud/server.sh
 
+# configuration for MySQL Server and public dustcloud IP
+# mysqldb = docker network link name
+ENV MYSQLIP mysqldb
+ENV MYSQLDB dustcloud
+ENV MYSQLUSER dustcloud
+ENV MYSQLPW dustcloudpw
+ENV CLOUDSERVERIP 130.83.47.181
 
-# IP and password
-RUN sed -i -e 's/pymysql.connect("localhost","dustcloud","","dustcloud")/pymysql.connect("localhost","dustcloud","dustcloudpw","dustcloud")/g' server.py \
-    && sed -i -e 's/my_cloudserver_ip = "10.0.0.1"/my_cloudserver_ip = "123.123.123.123"/g' server.py
+RUN sed -i -e "s/pymysql.connect(\"localhost\", \"dustcloud\", \"\", \"dustcloud\")/pymysql.connect(\"${MYSQLIP}\",\"${MYSQLUSER}\",\"${MYSQLPW}\",\"${MYSQLDB}\")/g" server.py \
+    && sed -i -e "s/my_cloudserver_ip = \"10.0.0.1\"/my_cloudserver_ip = \"${CLOUDSERVERIP}\"/g" server.py \
+    && 
+    && unset MYSQLPW
+
 
 CMD ["bash"]
