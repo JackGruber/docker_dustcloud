@@ -3,12 +3,10 @@
 Docker container for https://github.com/dgiese/dustcloud
 
 ## Getting Started
-Creates four docker containers
+Creates three docker containers
 - DB Server
 - phpMyAdmin
-- Dustcloud Proxy (Phyton files)
-- Dustcloud backend (PHP files)
-
+- Dustcloud
 
 
 ## Docker
@@ -28,7 +26,7 @@ docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw ma
 docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 phpmyadmin/phpmyadmin
 ```
 
-Login to phpMyAdmin an execute
+Login to phpMyAdmin ( http://IPADRESS:8080 ) an execute
 ```
 CREATE USER 'dustcloud'@'%' IDENTIFIED by 'dustcloudpw';
 GRANT USAGE ON *.* TO 'dustcloud'@'%';
@@ -59,9 +57,9 @@ docker start dustcloud_mariadb dustcloud_pma dustcloud
 docker stop dustcloud dustcloud_pma dustcloud_mariadb
 ```
 
-## Commands in dustcloud
-When starting a bash for the dustcloud_proxy container, all mirobo commands are available.
+## Running mirobo commands
 ```
-mirobo discover --handshake true
-... 
+docker exec -it dustcloud mirobo discover --handshake true
+docker exec -it dustcloud mirobo --ip=192.168.X.X --token=XXX
+...
 ```
