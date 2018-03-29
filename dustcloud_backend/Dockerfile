@@ -1,8 +1,25 @@
 FROM php:7.0-apache
 
+RUN apt-get update && apt-get install -y \
+    authbind \
+    curl \
+    python3 \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
+
 WORKDIR /var/www/html/
 
 RUN docker-php-ext-install mysqli
+
+# get python miio components
+#RUN pip3 install \
+#    bottle \
+#    pillow \
+#    pymysql \
+#    python-miio
 
 # get dustcloud
 RUN echo "<?php phpinfo(); ?>" > info.php \
