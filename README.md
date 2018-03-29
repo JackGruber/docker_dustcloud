@@ -15,8 +15,8 @@ Creates four docker containers
 
 ### Build
 ```
-docker build -t dustcloud_proxy .
-docker build -t dustcloud_backend .
+docker build -t dustcloud_proxy dustcloud_proxy/.
+docker build -t dustcloud_proxy dustcloud_backend/.
 ```
 
 ### Run DB container
