@@ -11,17 +11,17 @@ Creates three docker containers for x86
 
 ## Docker
 
-*Build dustcloud*
+**Build dustcloud**
 ```
 docker build -t dustcloud .
 ```
 
-*Run DB container*
+**Run DB container**
 ```
 docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw mariadb
 ```
 
-*Run phpMyAdmin*
+**Run phpMyAdmin**
 ```
 docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 phpmyadmin/phpmyadmin
 ```
@@ -39,7 +39,7 @@ execute SQL Query file for database structure creation
 https://github.com/dgiese/dustcloud/blob/master/dustcloud/dustcloud.sql
 ```
 
-*Run dustcloud persistent*
+**Run dustcloud persistent**
 ```
 docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb -p 80-81:80-81/tcp -p 8053:8053/udp dustcloud
 ```
@@ -49,7 +49,7 @@ or
 docker run --rm -it -p 80-81:80-81/tcp -p 8053:8053/udp --link dustcloud_mariadb:mysqldb dustcloud 
 ```
  
-*To start / stop all docker conatner at once*
+**To start / stop all docker conatner at once**
 ```
 docker start dustcloud_mariadb dustcloud_pma dustcloud
 docker stop dustcloud dustcloud_pma dustcloud_mariadb
