@@ -1,6 +1,7 @@
 FROM debian
 
 RUN apt-get update && apt-get install -y \
+    authbind \
     curl \
     python3 \
     python3-pip \
@@ -16,9 +17,13 @@ RUN pip3 install \
     pymysql \
     python-miio
 
+RUN touch /etc/authbind/byport/80 \
+    && chown www-data /etc/authbind/byport/80 \
+    && chmod 755 /etc/authbind/byport/80
+
 # copy dustcloud proxy
 WORKDIR /dustcloud
-RUN curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/server.sh --output server.sh \
+RUN echo 'su -c "authbind python3 /dustcloud/server.py" -s /bin/bash - www-data' > server.sh \
     && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/server.py --output server.py \
     && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/build_map.py --output build_map.py \
     && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/upload_map.sh --output upload_map.sh \
