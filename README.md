@@ -48,18 +48,18 @@ docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb -p 80-81:80-81/t
 ```
 docker run --rm -it -p 80-81:80-81/tcp -p 8053:8053/udp --link dustcloud_mariadb:mysqldb dustcloud 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 ### Start all
 ```
 docker start dustcloud_mariadb dustcloud_pma dustcloud
@@ -69,9 +69,9 @@ docker start dustcloud_mariadb dustcloud_pma dustcloud
 ```
 docker stop dustcloud dustcloud_pma dustcloud_mariadb
 ```
-
-
-
+ 
+ 
+ 
 ## Running mirobo commands
 ```
 docker exec -it dustcloud mirobo discover --handshake true
