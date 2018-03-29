@@ -37,14 +37,14 @@ CREATE DATABASE IF NOT EXISTS `dustcloud`;
 GRANT ALL PRIVILEGES ON `dustcloud`.* TO 'dustcloud'@'%';
 ```
 
-## Run dustcloud backend
-```
-docker run -d --name dustcloud_backend -p 81:80 --link dustcloud_mariadb:mysqldb --link dustcloud_proxy:cmdserver dustcloud_backend
-```
-
 ### Run dustcloud Proxy
 ```
 docker run --name dustcloud_proxy -d --link dustcloud_mariadb:mysqldb -p 80:80/tcp -p 8053:8053/udp -p 1121:1121/tcp dustcloud_proxy
+```
+
+## Run dustcloud backend
+```
+docker run -d --name dustcloud_backend -p 81:80 --link dustcloud_mariadb:mysqldb --link dustcloud_proxy:cmdserver dustcloud_backend
 ```
 
 ### Commands in dustcloud_proxy
