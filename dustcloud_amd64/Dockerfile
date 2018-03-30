@@ -27,23 +27,26 @@ RUN touch /etc/authbind/byport/80 \
 # copy dustcloud proxy
 WORKDIR /dustcloud
 RUN echo 'su -c "authbind python3 /dustcloud/server.py" -s /bin/bash - www-data' > server.sh \
-    && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/server.py --output server.py \
+    && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/server.py --output server.py.master \
     && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/build_map.py --output build_map.py \
     && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/upload_map.sh --output upload_map.sh \
     && chmod +x /dustcloud/server.sh
 
-# configuration for MySQL Server and public dustcloud IP
+###########################################################################
+# User configuration for MySQL Server and public dustcloud IP
 # mysqldb = docker network link name
 ENV MYSQLIP mysqldb
 ENV MYSQLDB dustcloud
 ENV MYSQLUSER dustcloud
 ENV MYSQLPW dustcloudpw
 ENV CLOUDSERVERIP 130.83.47.181
+###########################################################################
 
-RUN sed -i -e "s/pymysql.connect(\"localhost\", \"dustcloud\", \"\", \"dustcloud\")/pymysql.connect(\"${MYSQLIP}\",\"${MYSQLUSER}\",\"${MYSQLPW}\",\"${MYSQLDB}\")/g" server.py \
-    && sed -i -e "s/my_cloudserver_ip = \"10.0.0.1\"/my_cloudserver_ip = \"${CLOUDSERVERIP}\"/g" server.py
+RUN sed -i -e "s/pymysql.connect(\"localhost\", \"dustcloud\", \"\", \"dustcloud\")/pymysql.connect(\"${MYSQLIP}\",\"${MYSQLUSER}\",\"${MYSQLPW}\",\"${MYSQLDB}\")/g" server.py.master \
+    && sed -i -e "s/my_cloudserver_ip = \"10.0.0.1\"/my_cloudserver_ip = \"${CLOUDSERVERIP}\"/g" server.py.master
 
 
+# Apache settings
 ENV APACHE_PID_FILE ${APACHE_RUN_DIR}/apache2.pid
 ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_RUN_USER www-data
@@ -63,13 +66,13 @@ RUN echo "<?php phpinfo(); ?>" > info.php \
     && curl -SL https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/www/showcmdlog.php --output showcmdlog.php \
     && curl -SL https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/www/showlog.php --output showlog.php \
     && curl -SL https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/www/style.css --output style.css \
-    && curl -SL https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/www/config.php.dist --output config.php
+    && curl -SL https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/www/config.php.dist --output config_master.php
 
-# Customization for dustcloud
-RUN sed -i -e "s/const DB_HOST = 'localhost';/const DB_HOST = '${MYSQLIP}';/g" config.php \
-    && sed -i -e "s/const DB_USER = 'user123';/const DB_USER = '${MYSQLUSER}';/g" config.php \
-    && sed -i -e "s/const DB_PASS = '';/const DB_PASS = '${MYSQLPW}';/g" config.php \
-    && sed -i -e "s/const DB_NAME = 'dustcloud';/const DB_NAME = '${MYSQLDB}';/g" config.php
+# Customization for dustcloud database connection
+RUN sed -i -e "s/const DB_HOST = 'localhost';/const DB_HOST = '${MYSQLIP}';/g" config_master.php \
+    && sed -i -e "s/const DB_USER = 'user123';/const DB_USER = '${MYSQLUSER}';/g" config_master.php \
+    && sed -i -e "s/const DB_PASS = '';/const DB_PASS = '${MYSQLPW}';/g" config_master.php \
+    && sed -i -e "s/const DB_NAME = 'dustcloud';/const DB_NAME = '${MYSQLDB}';/g" config_master.php
 
 # Customization for PHP and Apache
 ENV APACHE_PORT 81
@@ -85,14 +88,9 @@ EXPOSE 81/tcp
 EXPOSE 8053/udp
 EXPOSE 1121/tcp
 
-#CMD /dustcloud/server.sh
-
 COPY docker_start.sh /
 RUN chmod 755 /docker_start.sh
 
-#ENTRYPOINT miio client
-#CMD ["apache2"]
-#CMD ["bash"]
-
+ENV DUSTCLOUDIP 192.168.1.129
 
 CMD /docker_start.sh
