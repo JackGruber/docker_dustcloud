@@ -4,6 +4,7 @@ RUN apt-get update && apt-get install -y \
     apache2 \
     authbind \
     curl \
+    git \
     php \
     php-mysql \
     python3 \
@@ -20,17 +21,23 @@ RUN pip3 install \
     pymysql \
     python-miio
 
+# allow www-data to bind port 80 with authbind
 RUN touch /etc/authbind/byport/80 \
     && chown www-data /etc/authbind/byport/80 \
     && chmod 755 /etc/authbind/byport/80
 
-# copy dustcloud proxy
-WORKDIR /dustcloud
-RUN echo 'su -c "authbind python3 /dustcloud/server.py" -s /bin/bash - www-data' > server.sh \
-    && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/server.py --output server.py.master \
-    && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/build_map.py --output build_map.py \
-    && curl https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/upload_map.sh --output upload_map.sh \
-    && chmod +x /dustcloud/server.sh
+# Dustcloud Data
+RUN git clone --depth 1 https://github.com/dgiese/dustcloud.git /gitdata \
+    && cp /gitdata/dustcloud/www/* /var/www/html/ \
+    && mv /var/www/html/config.php.dist /var/www/html/config_master.php \
+    && mkdir /dustcloud \
+    && cp /gitdata/dustcloud/server.py /dustcloud/server.py.master \
+    && cp /gitdata/dustcloud/build_map.py /dustcloud/build_map.py \
+    && echo 'su -c "authbind python3 /dustcloud/server.py" -s /bin/bash - www-data' > /dustcloud/server.sh \
+    && chmod +x /dustcloud/server.sh \
+    && echo "<?php phpinfo(); ?>" > /var/www/html/info.php \
+    && rm -rf /gitdata \
+    && rm /var/www/html/index.html
 
 ###########################################################################
 # User configuration for MySQL Server and public dustcloud IP
@@ -42,8 +49,8 @@ ENV MYSQLPW dustcloudpw
 ENV CLOUDSERVERIP 130.83.47.181
 ###########################################################################
 
-RUN sed -i -e "s/pymysql.connect(\"localhost\", \"dustcloud\", \"\", \"dustcloud\")/pymysql.connect(\"${MYSQLIP}\",\"${MYSQLUSER}\",\"${MYSQLPW}\",\"${MYSQLDB}\")/g" server.py.master \
-    && sed -i -e "s/my_cloudserver_ip = \"10.0.0.1\"/my_cloudserver_ip = \"${CLOUDSERVERIP}\"/g" server.py.master
+RUN sed -i -e "s/pymysql.connect(\"localhost\", \"dustcloud\", \"\", \"dustcloud\")/pymysql.connect(\"${MYSQLIP}\",\"${MYSQLUSER}\",\"${MYSQLPW}\",\"${MYSQLDB}\")/g" /dustcloud/server.py.master \
+    && sed -i -e "s/my_cloudserver_ip = \"10.0.0.1\"/my_cloudserver_ip = \"${CLOUDSERVERIP}\"/g" /dustcloud/server.py.master
 
 
 # Apache settings
@@ -55,18 +62,6 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_RUN_DIR /var/run/apache2
 
 WORKDIR /var/www/html
-RUN rm /var/www/html/index.html
-
-# get dustcloud (PHP)
-RUN echo "<?php phpinfo(); ?>" > info.php \
-    && curl -SL https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/www/fns.php --output fns.php \
-    && curl -SL https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/www/index.php --output index.php \
-    && curl -SL https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/www/newdevice.php --output newdevice.php \
-    && curl -SL https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/www/show.php --output show.php \
-    && curl -SL https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/www/showcmdlog.php --output showcmdlog.php \
-    && curl -SL https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/www/showlog.php --output showlog.php \
-    && curl -SL https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/www/style.css --output style.css \
-    && curl -SL https://raw.githubusercontent.com/dgiese/dustcloud/master/dustcloud/www/config.php.dist --output config_master.php
 
 # Customization for dustcloud database connection
 RUN sed -i -e "s/const DB_HOST = 'localhost';/const DB_HOST = '${MYSQLIP}';/g" config_master.php \
