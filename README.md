@@ -1,9 +1,10 @@
+
 # Docker containers for Xiaomi Mi Robot Vacuum dustcloud
 
 Docker container for https://github.com/dgiese/dustcloud
 
 ## Getting Started
-Creates three docker containers for x86
+Creates three docker containers
 - DB Server
 - phpMyAdmin
 - Dustcloud
@@ -12,19 +13,28 @@ Creates three docker containers for x86
 ## Docker
 
 **Build dustcloud**
+```dustcloud_pi``` for Raspberry Pi
+```dustcloud_x64``` for x64 Linux Platforms 
+
 ```
 docker build -t dustcloud .
 ```
 
-**Run DB container**
-```
-docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw mariadb
-```
+**create DB container**
 
-**Run phpMyAdmin**
-```
-docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 phpmyadmin/phpmyadmin
-```
+Raspberry Pi
+```docker run --name dustcloud_mariadb -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=rootdustcloudpw jsurf/rpi-mariadb```
+
+x64 
+```docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw mariadb```
+
+**create phpMyAdmin**
+
+Raspberry Pi
+```  ```
+
+x64 
+```docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 phpmyadmin/phpmyadmin```
 
 Login to phpMyAdmin ( http://IPADRESS:8080 ) an execute
 ```
@@ -34,29 +44,16 @@ CREATE DATABASE IF NOT EXISTS `dustcloud`;
 GRANT ALL PRIVILEGES ON `dustcloud`.* TO 'dustcloud'@'%';
 ```
 
-execute SQL Query file for database structure creation
+Copy the content from the ```dustcloud.sql``` ans execute the SQL Querys in phpMyAdmin
 ```
 https://github.com/dgiese/dustcloud/blob/master/dustcloud/dustcloud.sql
 ```
 
-**Run dustcloud persistent**
+**create dustcloud**
 
 change the DUSTCLOUDIP=`192.168.1.129` to your IP from the docker host 
-```
-docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp -e DUSTCLOUDIP=192.168.1.129 dustcloud
-```
-or
-*Rund dustcloud interactive*
-```
-docker run --rm -it --link dustcloud_mariadb:mysqldb -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp -e DUSTCLOUDIP=192.168.1.129 dustcloud 
-```
- 
-**To start / stop all docker conatner at once**
-```
-docker start dustcloud_mariadb dustcloud_pma dustcloud
-docker stop dustcloud dustcloud_pma dustcloud_mariadb
-```
- 
+```docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp -e DUSTCLOUDIP=192.168.1.129 dustcloud```
+
  
  
 ## Running mirobo commands
