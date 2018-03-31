@@ -26,6 +26,7 @@ Raspberry Pi
 ```docker run --name dustcloud_mariadb -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=rootdustcloudpw jsurf/rpi-mariadb```
 
 x64 
+
 ```docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw mariadb```
 
 **create phpMyAdmin**
