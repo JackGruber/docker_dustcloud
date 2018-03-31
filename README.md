@@ -36,7 +36,7 @@ docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw ma
 
 Raspberry Pi
 ```
-  
+still missing ...
 ```
 
 x64 
@@ -44,7 +44,7 @@ x64
 docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 phpmyadmin/phpmyadmin
 ```
 
-Login to phpMyAdmin ( http://IPADRESS:8080 ) an execute
+Login to phpMyAdmin ( http://YOURIP:8080 ) an execute
 ```
 CREATE USER 'dustcloud'@'%' IDENTIFIED by 'dustcloudpw';
 GRANT USAGE ON *.* TO 'dustcloud'@'%';
