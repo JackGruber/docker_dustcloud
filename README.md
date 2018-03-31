@@ -58,12 +58,14 @@ Raspberry Pi
 ```
 docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp -e DUSTCLOUDIP=192.168.1.129 jackgruber/dustcloud_pi
 ```
+
 x64
 ```
 docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp -e DUSTCLOUDIP=192.168.1.129 jackgruber/dustcloud_pi
 ```
 
 **Build your own dustcloud from Dockerfile**
+
 Folder ```dustcloud_pi``` for Raspberry Pi
 Folder ```dustcloud_x64``` for x64 Linux Platforms
 
