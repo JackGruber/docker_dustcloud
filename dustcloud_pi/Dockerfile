@@ -113,9 +113,6 @@ EXPOSE 8053/udp
 EXPOSE 1121/tcp
 
 
-ENV TZ Europe/Berlin
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
 COPY docker_start.sh /
 RUN chmod 755 /docker_start.sh
 
