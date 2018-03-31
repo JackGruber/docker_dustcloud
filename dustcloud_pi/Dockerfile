@@ -1,23 +1,19 @@
 FROM resin/rpi-raspbian
 
-#RUN apt-get update && apt-get install -y \
-RUN apt-get update
-RUN apt-get install -y \
+RUN apt-get update && apt-get install -y \
     apache2 \
     authbind \
     curl \
     git \
+    inetutils-ping \
     libffi-dev \
+    libjpeg-dev \
     libssl-dev \
-#    php \
-#    php-mysql \
+    php5 \
+    php5-mysqlnd \
     python3 \
-    python3-pip 
-#    && rm -rf /var/lib/apt/lists/*
-
-
+    python3-pip \
 # compiler for python3
-RUN apt-get install -y \
     build-essential \
     libbz2-dev \
     liblzma-dev \
@@ -26,11 +22,12 @@ RUN apt-get install -y \
     libgdbm-dev \
     zlib1g-dev \
     libreadline-dev \
-    tk-dev
+    tk-dev \
+# clean up
+    && rm -rf /var/lib/apt/lists/*
 
-
+# compile python3
 RUN mkdir /python3
-
 ENV RELEASE=3.5.2
 WORKDIR /python3
 RUN curl --output Python-$RELEASE.tar.xz https://www.python.org/ftp/python/$RELEASE/Python-$RELEASE.tar.xz \
@@ -41,22 +38,17 @@ RUN curl --output Python-$RELEASE.tar.xz https://www.python.org/ftp/python/$RELE
     && make install \
     && rm -rf /python3
 
-
-
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
 # get python miio components
-RUN pip3 install --upgrade pip
-RUN pip3 install --upgrade setuptools
-RUN pip3 install bottle
-RUN pip3 install pymysql
-RUN pip3 install python-miio
-
-RUN apt-get install libjpeg-dev
-RUN pip3 install pillow
-
-RUN apt-get install php5 php5-mysqlnd
+RUN pip3 install --upgrade pip \
+    && pip3 install --upgrade setuptools \
+    && pip3 install \
+    bottle \
+    pillow \
+    pymysql \
+    python-miio
 
 # allow www-data to bind port 80 with authbind
 RUN touch /etc/authbind/byport/80 \
@@ -108,9 +100,9 @@ RUN sed -i -e "s/const DB_HOST = 'localhost';/const DB_HOST = '${MYSQLIP}';/g" c
 
 # Customization for PHP and Apache
 ENV APACHE_PORT 81
-#RUN sed -i -e "s/;error_log = php_errors.log/error_log = php_errors.log/g" /etc/php/7.0/apache2/php.ini \
-#    && sed -i -e "s/;error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL/g" /etc/php/7.0/apache2/php.ini \
-RUN sed -i -e "s/Listen 80/Listen ${APACHE_PORT}/g" /etc/apache2/ports.conf \
+RUN sed -i -e "s/;error_log = php_errors.log/error_log = php_errors.log/g" /etc/php5/apache2/php.ini \
+    && sed -i -e "s/;error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL/g" /etc/php5/apache2/php.ini \
+    && sed -i -e "s/Listen 80/Listen ${APACHE_PORT}/g" /etc/apache2/ports.conf \
     && sed -i -e "s/:80>/:${APACHE_PORT}>/g" /etc/apache2/sites-enabled/000-default.conf
 
 WORKDIR /dustcloud
@@ -121,16 +113,14 @@ EXPOSE 8053/udp
 EXPOSE 1121/tcp
 
 
-RUN apt-get install -y inetutils-ping
-
-
 ENV TZ Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 COPY docker_start.sh /
 RUN chmod 755 /docker_start.sh
 
+ENV TZ Europe/Berlin
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ENV DUSTCLOUDIP 192.168.1.129
 
 CMD /docker_start.sh
-#cmd ["bash"]
