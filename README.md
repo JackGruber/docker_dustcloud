@@ -15,7 +15,7 @@ You can youse the dustcloud from Docker Hub or build your own from the Repro.
 
 ## Docker preparations
 
-**create DB container (optional)**
+**Run DB container (optional)**
 
 Raspberry Pi
 ```
@@ -27,7 +27,7 @@ x64
 docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw mariadb
 ```
 
-**create phpMyAdmin (optional)**
+**Run phpMyAdmin container (optional)**
 
 Raspberry Pi
 ```
@@ -54,7 +54,7 @@ https://github.com/dgiese/dustcloud/blob/master/dustcloud/dustcloud.sql
 
 ## Docker dustcloud
 
-**create dustcloud**
+**Run dustcloud container**
 
 change the DUSTCLOUDIP=`192.168.1.129` to your IP from the docker host
 
@@ -68,7 +68,7 @@ x64
 docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp -e DUSTCLOUDIP=192.168.1.129 jackgruber/dustcloud_pi
 ```
 
-## Build your own dustcloud from Dockerfile
+## Build your own dustcloud image from Dockerfile
 
 * Folder ```dustcloud_pi``` for Raspberry Pi
 * Folder ```dustcloud_x64``` for x64 Linux Platforms
