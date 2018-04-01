@@ -79,8 +79,8 @@ docker build -t dustcloud .
 
 ## Running python-miio (mirobo) commands
 ```
-docker exec -it dustcloud mirobo discover --handshake true
-docker exec -it dustcloud mirobo --ip=192.168.X.X --token=XXX
+docker exec dustcloud mirobo discover --handshake true
+docker exec dustcloud mirobo --ip=192.168.X.X --token=XXX
 ...
 ```
 
