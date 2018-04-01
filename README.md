@@ -29,7 +29,7 @@ docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw ma
 
 Raspberry Pi
 ```
-still missing ...
+docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 jackgruber/phpmyadmin_rpi
 ```
 
 x64
