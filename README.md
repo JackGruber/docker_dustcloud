@@ -60,12 +60,20 @@ change the DUSTCLOUDIP=`192.168.1.129` to your IP from the docker host
 
 Raspberry Pi
 ```
-docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp -e DUSTCLOUDIP=192.168.1.129 jackgruber/dustcloud_pi
+docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb \
+-p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp \
+-e DUSTCLOUDIP=192.168.1.129 \
+-v /tmp/data:/dustcloud/data
+jackgruber/dustcloud_pi
 ```
 
 x64
 ```
-docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp -e DUSTCLOUDIP=192.168.1.129 jackgruber/dustcloud_pi
+docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb \
+-p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp \
+-e DUSTCLOUDIP=192.168.1.129 \
+-v /tmp/data:/dustcloud/data
+jackgruber/dustcloud
 ```
 
 ## Build your own dustcloud image from Dockerfile
@@ -88,6 +96,11 @@ docker exec dustcloud mirobo discover --handshake true
 docker exec dustcloud mirobo --ip=192.168.X.X --token=XXX
 ...
 ```
+
+## Extract cleaning maps
+1. Copy the robot.db from you Xiaomi ```/mnt/data/rockrobo/robot.db``` to ```/tmp/data```
+2. Run ```docker exec dustcloud phyton3 /dustcloud/map_extractor.py -f /dustcloud/data/robot.db -o /dustcloud/data -c```
+3. The extracted maps are now in /tmp/data and can now be opened with FasteStone Image Viewer oder IrfanView
 
 ## Links
 Raspberry Pi phpMyAdmin https://github.com/JackGruber/docker_rpi-phpmyadmin
