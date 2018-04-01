@@ -77,14 +77,16 @@ docker build -t dustcloud .
 ```
 
 
-## Running mirobo commands
+## Running python-miio (mirobo) commands
 ```
 docker exec -it dustcloud mirobo discover --handshake true
 docker exec -it dustcloud mirobo --ip=192.168.X.X --token=XXX
 ...
 ```
 
-## links
+## Links
 Raspberry Pi phpMyAdmin https://github.com/JackGruber/docker_rpi-phpmyadmin
 
 Raspberry Pi MariaDB https://github.com/JSurf/docker-rpi-mariadb 
+
+python-miio Commands https://python-miio.readthedocs.io/en/latest/vacuum.html
