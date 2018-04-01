@@ -31,9 +31,10 @@ RUN git clone --depth 1 https://github.com/dgiese/dustcloud.git /gitdata \
     && cp /gitdata/dustcloud/www/* /var/www/html/ \
     && mv /var/www/html/config.php.dist /var/www/html/config_master.php \
     && mkdir /dustcloud \
+    && cp /gitdata/devices/xiaomi.vacuum.gen1/mapextractor/extractor.py /dustcloud/map_extractor.py \
     && cp /gitdata/dustcloud/server.py /dustcloud/server.py.master \
     && cp /gitdata/dustcloud/build_map.py /dustcloud/build_map.py \
-    && echo 'su -c "authbind python3 /dustcloud/server.py" -s /bin/bash - www-data' > /dustcloud/server.sh \
+    && echo 'su -c "authbind python3 /dustcloud/server.py --enable-live-map" -s /bin/bash - www-data' > /dustcloud/server.sh \
     && chmod +x /dustcloud/server.sh \
     && echo "<?php phpinfo(); ?>" > /var/www/html/info.php \
     && rm -rf /gitdata \
