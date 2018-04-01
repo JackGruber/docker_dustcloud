@@ -8,12 +8,14 @@ Docker container for https://github.com/dgiese/dustcloud
 Creates three docker containers for Raspberry Pi and Linux x64
 - DB Server
 - phpMyAdmin
-- Dustcloud
+- Dustcloud 
 
+The phpmyadmin and the DB server are optionale, you can use your existings instances.
+You can youse the dustcloud from Docker Hub or build your own from the Repro. 
 
-## Docker
+## Docker preparations
 
-**create DB container**
+**create DB container (optional)**
 
 Raspberry Pi
 ```
@@ -25,7 +27,7 @@ x64
 docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw mariadb
 ```
 
-**create phpMyAdmin**
+**create phpMyAdmin (optional)**
 
 Raspberry Pi
 ```
@@ -49,6 +51,8 @@ Copy the content from the ```dustcloud.sql``` ans execute the SQL Querys in phpM
 ```
 https://github.com/dgiese/dustcloud/blob/master/dustcloud/dustcloud.sql
 ```
+
+## Docker dustcloud
 
 **create dustcloud**
 
@@ -80,3 +84,6 @@ docker exec -it dustcloud mirobo --ip=192.168.X.X --token=XXX
 ...
 ```
 
+## links
+Raspberry Pi phpMyAdmin https://github.com/JackGruber/docker_rpi-phpmyadmin
+Raspberry Pi MariaDB https://github.com/JSurf/docker-rpi-mariadb 
