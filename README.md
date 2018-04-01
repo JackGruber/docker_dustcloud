@@ -77,6 +77,11 @@ docker build -t dustcloud .
 ```
 
 
+## Show server.py output
+```
+docker logs dustcloud
+```
+
 ## Running python-miio (mirobo) commands
 ```
 docker exec dustcloud mirobo discover --handshake true
