@@ -1,4 +1,7 @@
 #!/bin/sh
+echo "==================="
+echo "Start ${VERSION}"
+echo "==================="
 
 unset MYSQLPW
 unset MYSQLDB_ENV_MYSQL_ROOT_PASSWORD

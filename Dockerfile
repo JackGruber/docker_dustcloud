@@ -21,6 +21,7 @@ RUN apk update \
     py-pillow \
     py-pip \
     python3 \
+    tzdata \
     && pip3 install python-miio \
     pymysql \
     && apk del .build-deps \
@@ -78,16 +79,22 @@ RUN mkdir /run/apache2 \
 # allow python to bind ports < 1024
 RUN setcap CAP_NET_BIND_SERVICE=+eip /usr/bin/python3.6
 
+
+
 ###########################################################################
 # Start script
 RUN mkdir /bootstrap
 ADD start.sh /bootstrap/
 RUN chmod +x /bootstrap/start.sh
 
+ENV VERSION v1.1.1
 
-
+###########################################################################
+# Timezone
 ENV TZ Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+
 ENV DUSTCLOUDIP 192.168.1.129
 
 
