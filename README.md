@@ -108,7 +108,7 @@ Raspberry Pi MariaDB https://github.com/JSurf/docker-rpi-mariadb
 python-miio Commands https://python-miio.readthedocs.io/en/latest/vacuum.html
 
 
-## Changes
+## Changelog
 
 ### 02.04.2018
 - Changed to alpine as base image, so there is only one docker file for Raspberry Pi and x64. 
