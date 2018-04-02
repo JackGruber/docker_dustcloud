@@ -98,7 +98,7 @@ docker exec dustcloud mirobo --ip=192.168.X.X --token=XXX
 ## Extract cleaning maps
 1. Copy the robot.db from you Xiaomi ```/mnt/data/rockrobo/robot.db``` to ```/tmp/data```
 2. Run ```docker exec dustcloud python3 /dustcloud/map_extractor.py -f /dustcloud/data/robot.db -o /dustcloud/data -c```
-3. The extracted maps are now in ```/tmp/data``` and can now be opened with FasteStone Image Viewer oder IrfanView
+3. The extracted maps are now in ```/tmp/data``` and can now be opened with FasteStone Image Viewer or IrfanView
 
 ## Links
 Raspberry Pi phpMyAdmin https://github.com/JackGruber/docker_rpi-phpmyadmin
