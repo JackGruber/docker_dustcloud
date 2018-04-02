@@ -3,11 +3,11 @@ set -e
 cd $(dirname $0)
 
 case $( uname -m ) in
-armv7l)
-  REPO="angelnu/iobroker-arm"
+armv6l)
+  REPO="jackgruber/dustcloud_pi"
   ;;
 x86_64)
-  REPO="angelnu/iobroker-amd64"
+  REPO="jackgruber/dustcloud"
   ;;
 *)
   echo "Unknown arch $( uname -p )"
@@ -15,6 +15,5 @@ x86_64)
   ;;
 esac
 
-echo $REPO
-#docker build -t $REPO .
-#docker push $REPO
+docker build -t $REPO .
+docker push $REPO
