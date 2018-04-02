@@ -78,8 +78,6 @@ jackgruber/dustcloud
 
 ## Build your own dustcloud image from Dockerfile
 
-* Folder ```dustcloud_pi``` for Raspberry Pi
-* Folder ```dustcloud_x64``` for x64 Linux Platforms
 ```
 docker build -t dustcloud .
 ```
@@ -108,3 +106,12 @@ Raspberry Pi phpMyAdmin https://github.com/JackGruber/docker_rpi-phpmyadmin
 Raspberry Pi MariaDB https://github.com/JSurf/docker-rpi-mariadb 
 
 python-miio Commands https://python-miio.readthedocs.io/en/latest/vacuum.html
+
+
+## Changes
+
+### 02.04.2018
+Changed to alpine as base image, so there is only one docker file for Raspberry Pi and x64. 
+Also the size has been reduced from 592MB to 180MB for the docker image
+
+
