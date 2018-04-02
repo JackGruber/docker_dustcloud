@@ -85,7 +85,7 @@ docker build -t dustcloud .
 
 ## Show server.py output
 ```
-docker logs dustcloud
+docker logs -f dustcloud
 ```
 
 ## Running python-miio (mirobo) commands
