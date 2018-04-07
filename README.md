@@ -116,6 +116,9 @@ python-miio Commands https://python-miio.readthedocs.io/en/latest/vacuum.html
 
 ## Changelog
 
+### 07.04.2018
+- Add timezone to php.ini
+
 ### 02.04.2018
 - Changed to alpine as base image, so there is only one docker file for Raspberry Pi and x64. 
 - Also the size has been reduced from 592MB to 180MB for the docker image
