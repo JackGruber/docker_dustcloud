@@ -81,7 +81,8 @@ jackgruber/dustcloud
 ```
 docker build -t dustcloud .
 ```
-
+##  Add your Vacuum to dustcloud
+Go to http://DUSTCLOUDIP:81 and add your Vacuum. DID and enckey can be found both in ```/mnt/default/device.conf``` on your robot
 
 ## Show server.py output
 ```
