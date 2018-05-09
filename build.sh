@@ -1,19 +1,41 @@
 #!/bin/sh
-set -e
-cd $(dirname $0)
+REPO="jackgruber/dustcloud"
 
-case $( uname -m ) in
-armv6l)
-  REPO="jackgruber/dustcloud_pi"
-  ;;
-x86_64)
-  REPO="jackgruber/dustcloud"
-  ;;
-*)
-  echo "Unknown arch $( uname -p )"
-  exit 1
-  ;;
-esac
+arch=$( uname -m )
 
-docker build -t $REPO .
-docker push $REPO
+if [ "$1" = "test" ]; then
+  arch="test"
+fi
+
+docker build -t $REPO:$arch .
+
+if [ "$1" != "test" ]; then
+  case $arch in
+  armv7l)
+    docker tag $REPO:$arch $REPO:rpi
+    docker tag $REPO:$arch $REPO:rpi3
+    docker tag $REPO:$arch $REPO:arm
+
+    # for history
+    docker tag $REPO:$arch $REPO'_pi'
+    if [ "$1" = "push" ]; then
+      docker push $REPO'_pi'
+    fi
+    ;;
+  armv6l)
+    docker tag $REPO:$arch $REPO:rpi
+    docker tag $REPO:$arch $REPO:rpizw
+    docker tag $REPO:$arch $REPO:arm
+    ;;
+  x86_64)
+    ;;
+  *)
+    echo "Unknown arch $( uname -m )"
+    exit 1
+  ;;
+  esac
+
+  if [ "$1" = "push" ]; then
+    docker push $REPO
+  fi
+fi
