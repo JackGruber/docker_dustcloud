@@ -1,9 +1,6 @@
 
 
 # Docker containers for Xiaomi Mi Robot Vacuum dustcloud
-[![Docker Pulls](https://img.shields.io/docker/pulls/jackgruber/dustcloud.svg)][hub]
-
-[Docker Layers](https://images.microbadger.com/badges/image/jackgruber/dustcloud.svg)](https://microbadger.com/images/jackgruber/dustcloud "Get your own image badge on microbadger.com")
 
 Docker container for https://github.com/dgiese/dustcloud
 
