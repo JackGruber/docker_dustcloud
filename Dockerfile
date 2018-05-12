@@ -46,26 +46,17 @@ RUN git clone --depth 1 https://github.com/dgiese/dustcloud.git $GITDIR \
     && rm -rf $GITDIR \
     && rm $WWWDATA/index.html
 
-###########################################################################
-# User configuration for MySQL Server and public dustcloud IP
-# mysqldb = docker network link name
-ENV MYSQLIP mysqldb
-ENV MYSQLDB dustcloud
-ENV MYSQLUSER dustcloud
-ENV MYSQLPW dustcloudpw
-ENV CLOUDSERVERIP 130.83.47.181
-
 # Change vars in server.py.master
-RUN sed -i -e "s/pymysql.connect(\"localhost\", \"dustcloud\", \"\", \"dustcloud\")/pymysql.connect(\"${MYSQLIP}\",\"${MYSQLUSER}\",\"${MYSQLPW}\",\"${MYSQLDB}\")/g" $DUSTCLOUD/server.py.master \
-    && sed -i -e "s/my_cloudserver_ip = \"10.0.0.1\"/my_cloudserver_ip = \"${CLOUDSERVERIP}\"/g" $DUSTCLOUD/server.py.master
+RUN sed -i -e "s/pymysql.connect(\"localhost\", \"dustcloud\", \"\", \"dustcloud\")/pymysql.connect(\"{{MYSQLSERVER}}\",\"{{MYSQLUSER}}\",\"{{MYSQLPW}}\",\"{{MYSQLDB}}\")/g" $DUSTCLOUD/server.py.master \
+    && sed -i -e "s/my_cloudserver_ip = \"10.0.0.1\"/my_cloudserver_ip = \"{{CLOUDSERVERIP}}\"/g" $DUSTCLOUD/server.py.master \
+    && sed -i -e "s/cmd_server.run(host=\"localhost\", port=cmd_server_port)/cmd_server.run(host=\"0.0.0.0\", port={{CMDSERVER_PORT}})/g" $DUSTCLOUD/server.py.master
 
 # Customization for dustcloud database connection in php
-RUN sed -i -e "s/const DB_HOST = 'localhost';/const DB_HOST = '${MYSQLIP}';/g" $WWWDATA/config_master.php \
-    && sed -i -e "s/const DB_USER = 'user123';/const DB_USER = '${MYSQLUSER}';/g" $WWWDATA/config_master.php \
-    && sed -i -e "s/const DB_PASS = '';/const DB_PASS = '${MYSQLPW}';/g" $WWWDATA/config_master.php \
-    && sed -i -e "s/const DB_NAME = 'dustcloud';/const DB_NAME = '${MYSQLDB}';/g" $WWWDATA/config_master.php
-
-
+RUN sed -i -e "s/const DB_HOST = 'localhost';/const DB_HOST = '{{MYSQLSERVER}}';/g" $WWWDATA/config_master.php \
+    && sed -i -e "s/const DB_USER = 'user123';/const DB_USER = '{{MYSQLUSER}}';/g" $WWWDATA/config_master.php \
+    && sed -i -e "s/const DB_PASS = '';/const DB_PASS = '{{MYSQLPW}}';/g" $WWWDATA/config_master.php \
+    && sed -i -e "s/const DB_NAME = 'dustcloud';/const DB_NAME = '{{MYSQLDB}}';/g" $WWWDATA/config_master.php \
+    && sed -i -e "s/const CMD_SERVER = 'http:\/\/localhost:1121\/';/const CMD_SERVER = \"http:\/\/{{CMDSERVER}}:{{CMDSERVER_PORT}}\/\";/g" $WWWDATA/config_master.php
 
 ###########################################################################
 # Timezone
