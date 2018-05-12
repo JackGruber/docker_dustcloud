@@ -56,13 +56,13 @@ https://github.com/dgiese/dustcloud/blob/master/dustcloud/dustcloud.sql
 
 **Run dustcloud container**
 
-change the DUSTCLOUDIP=`192.168.1.129` to your IP from the docker host
+change the CMDSERVER=`192.168.1.129` to your IP from the docker host
 
 Raspberry Pi
 ```
 docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb \
 -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp \
--e DUSTCLOUDIP=192.168.1.129 \
+-e CMDSERVER=192.168.1.129 \
 -v /tmp/data:/dustcloud/data \
 jackgruber/dustcloud_pi
 ```
@@ -71,10 +71,21 @@ x64
 ```
 docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb \
 -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp \
--e DUSTCLOUDIP=192.168.1.129 \
+-e CMDSERVER=192.168.1.129 \
 -v /tmp/data:/dustcloud/data \
 jackgruber/dustcloud
 ```
+
+# Configuration
+These options can be set via the environment variable -e flag:
+
+- **CLOUDSERVERIP**: Your Dustcloud IP address (Default: 130.83.47.181, Values: <IP addr>)
+- **MYSQLSERVER**: MySQL Server address (Default: db, Values: <IP addr> or <DNS name>)
+- **MYSQLDB**: MySQL database for dustcloud (Default: dustcloud, Values: <string>)
+- **MYSQLUSER**: User for MySQL database (Default: dustcloud, Values: <string>)
+- **MYSQLPW**: Password for MySQL database (Default: dustcloudpw, Values: <string>)
+- **CMDSERVER**: Command Server IP or DNS Name (Default: 192.168.1.7, Values: <IP addr> or <DNS name>)
+- **CMDSERVER_PORT**: Port number for command server (Default: 1121, Values: <1-65535>)
 
 ## Build your own dustcloud image from Dockerfile
 
@@ -123,5 +134,3 @@ python-miio Commands https://python-miio.readthedocs.io/en/latest/vacuum.html
 ### 02.04.2018
 - Changed to alpine as base image, so there is only one docker file for Raspberry Pi and x64. 
 - Also the size has been reduced from 592MB to 180MB for the docker image
-
-
