@@ -76,7 +76,7 @@ docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb \
 jackgruber/dustcloud:x64
 ```
 
-# Configuration
+## Configuration
 These options can be set via the environment variable -e flag:
 
 - **CLOUDSERVERIP**: Your Dustcloud IP address (Default: 130.83.47.181, Values: \<IP addr>)
