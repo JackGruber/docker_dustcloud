@@ -128,6 +128,9 @@ python-miio Commands https://python-miio.readthedocs.io/en/latest/vacuum.html
 
 ## Changelog
 
+### 12.05.2018
+- Change to ENV var configuration settings
+
 ### 07.04.2018
 - Add timezone to php.ini
 
