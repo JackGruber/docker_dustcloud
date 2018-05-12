@@ -85,10 +85,7 @@ RUN mkdir /bootstrap
 ADD start.sh /bootstrap/
 RUN chmod +x /bootstrap/start.sh
 
-ENV VERSION v1.1.1
-
-ENV DUSTCLOUDIP 192.168.1.129
-
+ENV VERSION v1.2.0
 
 WORKDIR $DUSTCLOUD
 
