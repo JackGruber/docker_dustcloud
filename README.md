@@ -79,13 +79,13 @@ jackgruber/dustcloud:x64
 # Configuration
 These options can be set via the environment variable -e flag:
 
-- **CLOUDSERVERIP**: Your Dustcloud IP address (Default: 130.83.47.181, Values: <IP addr>)
-- **MYSQLSERVER**: MySQL Server address (Default: db, Values: <IP addr> or <DNS name>)
-- **MYSQLDB**: MySQL database for dustcloud (Default: dustcloud, Values: <string>)
-- **MYSQLUSER**: User for MySQL database (Default: dustcloud, Values: <string>)
-- **MYSQLPW**: Password for MySQL database (Default: dustcloudpw, Values: <string>)
-- **CMDSERVER**: Command Server IP or DNS Name (Default: 192.168.1.7, Values: <IP addr> or <DNS name>)
-- **CMDSERVER_PORT**: Port number for command server (Default: 1121, Values: <1-65535>)
+- **CLOUDSERVERIP**: Your Dustcloud IP address (Default: 130.83.47.181, Values: \<IP addr>)
+- **MYSQLSERVER**: MySQL Server address (Default: db, Values: \<IP addr> or \<DNS name>)
+- **MYSQLDB**: MySQL database for dustcloud (Default: dustcloud, Values: \<string>)
+- **MYSQLUSER**: User for MySQL database (Default: dustcloud, Values: \<string>)
+- **MYSQLPW**: Password for MySQL database (Default: dustcloudpw, Values: \<string>)
+- **CMDSERVER**: Command Server IP or DNS Name (Default: 192.168.1.7, Values: \<IP addr> or \<DNS name>)
+- **CMDSERVER_PORT**: Port number for command server (Default: 1121, Values: \<1-65535>)
 
 ## Build your own dustcloud image from Dockerfile
 
