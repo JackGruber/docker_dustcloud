@@ -64,7 +64,7 @@ docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb \
 -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp \
 -e CMDSERVER=192.168.1.129 \
 -v /tmp/data:/dustcloud/data \
-jackgruber/dustcloud_pi
+jackgruber/dustcloud:rpi
 ```
 
 x64
@@ -73,7 +73,7 @@ docker run --name dustcloud -d --link dustcloud_mariadb:mysqldb \
 -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp \
 -e CMDSERVER=192.168.1.129 \
 -v /tmp/data:/dustcloud/data \
-jackgruber/dustcloud
+jackgruber/dustcloud:x64
 ```
 
 # Configuration

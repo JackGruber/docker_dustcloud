@@ -28,6 +28,8 @@ if [ "$1" != "test" ]; then
     docker tag $REPO:$arch $REPO:arm
     ;;
   x86_64)
+    docker tag $REPO:$arch $REPO:x64
+    docker tag $REPO:$arch $REPO
     ;;
   *)
     echo "Unknown arch $( uname -m )"
