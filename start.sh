@@ -25,7 +25,6 @@ sed -i -e "s/{{CLOUDSERVERIP}}/${CLOUDSERVERIP}/g" $DUSTCLOUD/server.py
 # IP adaptaion to the docker external IP for the dustcloud commandserver
 cp ${WWWDATA}/config_master.php ${WWWDATA}/config.php
 cp ${WWWDATA}/config_master.php ${WWWDATA}/config.php
-sed -i -e "s/const CMD_SERVER = 'http:\/\/localhost:1121\/';/const CMD_SERVER = \"http:\/\/$DUSTCLOUDIP:1121\/\";/g" ${WWWDATA}/config.php
 sed -i -e "s/{{MYSQLSERVER}}/${MYSQLSERVER}/g" $WWWDATA/config.php
 sed -i -e "s/{{MYSQLUSER}}/${MYSQLUSER}/g" $WWWDATA/config.php
 sed -i -e "s/{{MYSQLPW}}/${MYSQLPW}/g" $WWWDATA/config.php
