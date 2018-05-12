@@ -12,15 +12,12 @@ CMDSERVER=${CMDSERVER:-192.168.1.7}
 
 #################################################
 # IP adaptation to the docker internal IP for the commandserver
-LOCALE_IP=$(ping -c 1 $HOSTNAME | grep -i ping | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
-CMDSERVER_IP=${CMDSERVER_IP:-$LOCALE_IP}
 cp /dustcloud/server.py.master /dustcloud/server.py
 sed -i -e "s/cmd_server.run(host=\"localhost\", port=cmd_server_port)/cmd_server.run(host=\"${CMD_SERVERIP}\", port=cmd_server_port)/g" /dustcloud/server.py
 sed -i -e "s/{{MYSQLSERVER}}/${MYSQLSERVER}/g" $DUSTCLOUD/server.py
 sed -i -e "s/{{MYSQLUSER}}/${MYSQLUSER}/g" $DUSTCLOUD/server.py
 sed -i -e "s/{{MYSQLPW}}/${MYSQLPW}/g" $DUSTCLOUD/server.py
 sed -i -e "s/{{MYSQLDB}}/${MYSQLDB}/g" $DUSTCLOUD/server.py
-sed -i -e "s/{{CMDSERVER_IP}}/${CMDSERVER_IP}/g" $DUSTCLOUD/server.py
 sed -i -e "s/{{CMDSERVER_PORT}}/${CMDSERVER_PORT}/g" $DUSTCLOUD/server.py
 sed -i -e "s/{{CLOUDSERVERIP}}/${CLOUDSERVERIP}/g" $DUSTCLOUD/server.py
 
