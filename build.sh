@@ -23,9 +23,7 @@ if [ "$1" != "test" ]; then
     fi
     ;;
   armv6l)
-    docker tag $REPO:$arch $REPO:rpi
     docker tag $REPO:$arch $REPO:rpizw
-    docker tag $REPO:$arch $REPO:arm
     ;;
   x86_64)
     docker tag $REPO:$arch $REPO:x64
