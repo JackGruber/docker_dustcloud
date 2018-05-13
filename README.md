@@ -19,7 +19,8 @@ You can youse the dustcloud from Docker Hub or build your own from the Repro.
 
 Raspberry Pi
 ```
-docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw -e TZ=$(cat /etc/timezone) jackgruber/mariadb
+docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw \
+-e TZ=$(cat /etc/timezone) jackgruber/mariadb
 ```
 
 x64
@@ -62,6 +63,7 @@ change the CMDSERVER=`192.168.1.129` to your IP from the docker host
 docker run --name dustcloud -d --link dustcloud_mariadb:db \
 -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp \
 -e CMDSERVER=192.168.1.129 \
+-e TZ=$(cat /etc/timezone) \
 -v /tmp/data:/dustcloud/data \
 jackgruber/dustcloud:$(uname -m)
 ```
