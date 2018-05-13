@@ -9,6 +9,7 @@ MYSQLUSER=${MYSQLUSER:-dustcloud}
 MYSQLPW=${MYSQLPW:-dustcloudpw}
 CMDSERVER_PORT=${CMDSERVER_PORT:-1121}
 CMDSERVER=${CMDSERVER:-192.168.1.7}
+TZ=${TZ:-Europe/Berlin}
 
 #################################################
 # IP adaptation to the docker internal IP for the commandserver
@@ -31,6 +32,10 @@ sed -i -e "s/{{MYSQLPW}}/${MYSQLPW}/g" $WWWDATA/config.php
 sed -i -e "s/{{MYSQLDB}}/${MYSQLDB}/g" $WWWDATA/config.php
 sed -i -e "s/{{CMDSERVER}}/${CMDSERVER}/g" $WWWDATA/config.php
 sed -i -e "s/{{CMDSERVER_PORT}}/${CMDSERVER_PORT}/g" $WWWDATA/config.php
+
+# Timezone
+sed -i -e "s@{{TZ}}@${TZ}@g" /etc/php7/php.ini
+
 
 # Start (ensure apache2 PID not left behind first) to stop auto start crashes if didn't shut down properly
 echo "Clearing any old processes..."

@@ -19,7 +19,8 @@ You can youse the dustcloud from Docker Hub or build your own from the Repro.
 
 Raspberry Pi
 ```
-docker run --name dustcloud_mariadb -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=rootdustcloudpw jsurf/rpi-mariadb
+docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw \
+-e TZ=$(cat /etc/timezone) jackgruber/mariadb
 ```
 
 x64
@@ -31,7 +32,7 @@ docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw ma
 
 Raspberry Pi
 ```
-docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 jackgruber/phpmyadmin:rpi
+docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 jackgruber/phpmyadmin
 ```
 
 x64
@@ -58,22 +59,13 @@ https://github.com/dgiese/dustcloud/blob/master/dustcloud/dustcloud.sql
 
 change the CMDSERVER=`192.168.1.129` to your IP from the docker host
 
-Raspberry Pi
 ```
 docker run --name dustcloud -d --link dustcloud_mariadb:db \
 -p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp \
 -e CMDSERVER=192.168.1.129 \
+-e TZ=$(cat /etc/timezone) \
 -v /tmp/data:/dustcloud/data \
-jackgruber/dustcloud:rpi
-```
-
-x64
-```
-docker run --name dustcloud -d --link dustcloud_mariadb:db \
--p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp \
--e CMDSERVER=192.168.1.129 \
--v /tmp/data:/dustcloud/data \
-jackgruber/dustcloud:x64
+jackgruber/dustcloud:$(uname -m)
 ```
 
 ## Configuration
@@ -86,6 +78,7 @@ These options can be set via the environment variable -e flag:
 - **MYSQLPW**: Password for MySQL database (Default: dustcloudpw, Values: \<string>)
 - **CMDSERVER**: Command Server IP or DNS Name (Default: 192.168.1.7, Values: \<IP addr> or \<DNS name>)
 - **CMDSERVER_PORT**: Port number for command server (Default: 1121, Values: \<1-65535>)
+- **TZ**: Set Timezone (Default: Europe/Berlin, Values: \<[TZ](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)>)
 
 ## Build your own dustcloud image from Dockerfile
 
