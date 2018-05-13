@@ -89,3 +89,18 @@ EXPOSE 8053/udp
 EXPOSE 1121/tcp
 
 CMD ["/bootstrap/start.sh"]
+
+
+# Build-time metadata as defined at http://label-schema.org
+ENV VERSION v1.2.1
+ARG BUILD_DATE
+ARG VCS_REF
+ARG BRANCH
+LABEL org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.name="dustcloud" \
+      org.label-schema.description="Image for Xiaomi Mi Robot Vacuum dustcloud project (https://github.com/dgiese/dustcloud)" \
+      org.label-schema.url="https://github.com/JackGruber/docker_dustcloud" \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url="https://github.com/JackGruber/docker_dustcloud.git" \
+      org.label-schema.version="$BRANCH $VERSION" \
+      org.label-schema.schema-version="1.0"
