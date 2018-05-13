@@ -59,12 +59,6 @@ RUN sed -i -e "s/const DB_HOST = 'localhost';/const DB_HOST = '{{MYSQLSERVER}}';
     && sed -i -e "s/const CMD_SERVER = 'http:\/\/localhost:1121\/';/const CMD_SERVER = \"http:\/\/{{CMDSERVER}}:{{CMDSERVER_PORT}}\/\";/g" $WWWDATA/config_master.php
 
 ###########################################################################
-# Timezone
-ENV TZ Europe/Berlin
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-
-###########################################################################
 # Customization for PHP and Apache
 ENV APACHE_PORT 81
 
@@ -72,7 +66,7 @@ RUN mkdir /run/apache2 \
     && sed -i -e "s/Listen 80/Listen ${APACHE_PORT}/g" /etc/apache2/httpd.conf \
     && sed -i -e "s/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL/g" /etc/php7/php.ini \
     && sed -i -e "s/display_errors = Off/display_errors = On/g" /etc/php7/php.ini \
-    && sed -i -e "s@;date.timezone =@date.timezone = \"${TZ}\"@g" /etc/php7/php.ini
+    && sed -i -e "s@;date.timezone =@date.timezone = \"{{TZ}}\"@g" /etc/php7/php.ini
 
 # allow python to bind ports < 1024
 RUN setcap CAP_NET_BIND_SERVICE=+eip /usr/bin/python3.6
@@ -85,7 +79,7 @@ RUN mkdir /bootstrap
 ADD start.sh /bootstrap/
 RUN chmod +x /bootstrap/start.sh
 
-ENV VERSION v1.2.0
+ENV VERSION v1.2.1
 
 WORKDIR $DUSTCLOUD
 

@@ -76,6 +76,7 @@ These options can be set via the environment variable -e flag:
 - **MYSQLPW**: Password for MySQL database (Default: dustcloudpw, Values: \<string>)
 - **CMDSERVER**: Command Server IP or DNS Name (Default: 192.168.1.7, Values: \<IP addr> or \<DNS name>)
 - **CMDSERVER_PORT**: Port number for command server (Default: 1121, Values: \<1-65535>)
+- **TZ**: Set Timezone (Default: Europe/Berlin, Values: \<[TZ](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)>)
 
 ## Build your own dustcloud image from Dockerfile
 
