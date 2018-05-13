@@ -19,7 +19,7 @@ You can youse the dustcloud from Docker Hub or build your own from the Repro.
 
 Raspberry Pi
 ```
-docker run --name dustcloud_mariadb -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=rootdustcloudpw jsurf/rpi-mariadb
+docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw jsurf/rpi-mariadb
 ```
 
 x64
