@@ -36,6 +36,7 @@ if [ "$1" != "test" ]; then
   esac
 
   if [ "$1" = "push" ]; then
+    docker rmi $REPO:test
     docker push $REPO
   fi
 fi
