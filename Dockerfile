@@ -16,6 +16,9 @@ RUN apk update \
     php7 \
     php7-apache2 \
     php7-mysqli \
+    php7-mbstring \
+    php7-phar \
+    php7-json \
     py-bottle \
     py-mysqldb \
     py-pillow \
@@ -34,8 +37,7 @@ ENV WWWDATA /var/www/localhost/htdocs
 ENV DUSTCLOUD /dustcloud
 ENV GITDIR /gitdata
 RUN git clone --depth 1 https://github.com/dgiese/dustcloud.git $GITDIR \
-    && cp $GITDIR/dustcloud/www/* $WWWDATA \
-    && mv $WWWDATA/config.php.dist $WWWDATA/config_master.php \
+    && cp -r $GITDIR/dustcloud/www/* $WWWDATA \
     && mkdir $DUSTCLOUD \
     && cp $GITDIR/devices/xiaomi.vacuum.gen1/mapextractor/extractor.py $DUSTCLOUD/map_extractor.py \
     && cp $GITDIR/dustcloud/server.py $DUSTCLOUD/server.py.master \
@@ -52,11 +54,17 @@ RUN sed -i -e "s/pymysql.connect(\"localhost\", \"dustcloud\", \"\", \"dustcloud
     && sed -i -e "s/cmd_server.run(host=\"localhost\", port=cmd_server_port)/cmd_server.run(host=\"0.0.0.0\", port={{CMDSERVER_PORT}})/g" $DUSTCLOUD/server.py.master
 
 # Customization for dustcloud database connection in php
-RUN sed -i -e "s/const DB_HOST = 'localhost';/const DB_HOST = '{{MYSQLSERVER}}';/g" $WWWDATA/config_master.php \
-    && sed -i -e "s/const DB_USER = 'user123';/const DB_USER = '{{MYSQLUSER}}';/g" $WWWDATA/config_master.php \
-    && sed -i -e "s/const DB_PASS = '';/const DB_PASS = '{{MYSQLPW}}';/g" $WWWDATA/config_master.php \
-    && sed -i -e "s/const DB_NAME = 'dustcloud';/const DB_NAME = '{{MYSQLDB}}';/g" $WWWDATA/config_master.php \
-    && sed -i -e "s/const CMD_SERVER = 'http:\/\/localhost:1121\/';/const CMD_SERVER = \"http:\/\/{{CMDSERVER}}:{{CMDSERVER_PORT}}\/\";/g" $WWWDATA/config_master.php
+RUN sed -i -e "s/'host' => 'localhost',/'host' => '{{MYSQLSERVER}}',/g" $WWWDATA/conf.sample.php \
+    && sed -i -e "s/'username' => 'user123',/'username' => '{{MYSQLUSER}}',/g" $WWWDATA/conf.sample.php \
+    && sed -i -e "s/'password' => '',/'password' => '{{MYSQLPW}}',/g" $WWWDATA/conf.sample.php \
+    && sed -i -e "s/'database' => 'dustcloud',/'database' => '{{MYSQLDB}}',/g" $WWWDATA/conf.sample.php \
+    && sed -i -e "s/'cmd.server' => 'http:\/\/localhost:1121\/',/'cmd.server' => 'http:\/\/{{CMDSERVER}}:{{CMDSERVER_PORT}}\/',/g" $WWWDATA/conf.sample.php
+
+###########################################################################
+# Install composer
+RUN cd $WWWDATA \
+    && curl https://raw.githubusercontent.com/composer/getcomposer.org/master/web/installer | php -- \
+    && php composer.phar install
 
 ###########################################################################
 # Customization for PHP and Apache
@@ -79,7 +87,7 @@ RUN mkdir /bootstrap
 ADD start.sh /bootstrap/
 RUN chmod +x /bootstrap/start.sh
 
-ENV VERSION v1.2.1
+ENV VERSION v1.3.0
 
 WORKDIR $DUSTCLOUD
 

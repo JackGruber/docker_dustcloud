@@ -24,14 +24,13 @@ sed -i -e "s/{{CLOUDSERVERIP}}/${CLOUDSERVERIP}/g" $DUSTCLOUD/server.py
 
 #################################################
 # IP adaptaion to the docker external IP for the dustcloud commandserver
-cp ${WWWDATA}/config_master.php ${WWWDATA}/config.php
-cp ${WWWDATA}/config_master.php ${WWWDATA}/config.php
-sed -i -e "s/{{MYSQLSERVER}}/${MYSQLSERVER}/g" $WWWDATA/config.php
-sed -i -e "s/{{MYSQLUSER}}/${MYSQLUSER}/g" $WWWDATA/config.php
-sed -i -e "s/{{MYSQLPW}}/${MYSQLPW}/g" $WWWDATA/config.php
-sed -i -e "s/{{MYSQLDB}}/${MYSQLDB}/g" $WWWDATA/config.php
-sed -i -e "s/{{CMDSERVER}}/${CMDSERVER}/g" $WWWDATA/config.php
-sed -i -e "s/{{CMDSERVER_PORT}}/${CMDSERVER_PORT}/g" $WWWDATA/config.php
+cp ${WWWDATA}/conf.sample.php ${WWWDATA}/conf.php
+sed -i -e "s/{{MYSQLSERVER}}/${MYSQLSERVER}/g" $WWWDATA/conf.php
+sed -i -e "s/{{MYSQLUSER}}/${MYSQLUSER}/g" $WWWDATA/conf.php
+sed -i -e "s/{{MYSQLPW}}/${MYSQLPW}/g" $WWWDATA/conf.php
+sed -i -e "s/{{MYSQLDB}}/${MYSQLDB}/g" $WWWDATA/conf.php
+sed -i -e "s/{{CMDSERVER}}/${CMDSERVER}/g" $WWWDATA/conf.php
+sed -i -e "s/{{CMDSERVER_PORT}}/${CMDSERVER_PORT}/g" $WWWDATA/conf.php
 
 # Timezone
 sed -i -e "s@{{TZ}}@${TZ}@g" /etc/php7/php.ini
