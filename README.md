@@ -11,7 +11,7 @@ Creates three docker containers for Raspberry Pi and Linux x64
 - Dustcloud 
 
 The phpmyadmin and the DB server are optionale, you can use your existings instances.
-You can youse the dustcloud from Docker Hub or build your own from the Repro. 
+You can use the dustcloud from Docker Hub or build your own from the Repro. 
 
 ## Docker preparations
 
