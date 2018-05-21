@@ -65,7 +65,7 @@ docker run --name dustcloud -d --link dustcloud_mariadb:db \
 -e CMDSERVER=192.168.1.129 \
 -e TZ=$(cat /etc/timezone) \
 -v /tmp/data:/dustcloud/data \
-jackgruber/dustcloud:$(dpkg --print-architecture)
+jackgruber/dustcloud
 ```
 
 ## Configuration
