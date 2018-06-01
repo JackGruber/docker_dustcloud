@@ -12,6 +12,18 @@ CMDSERVER=${CMDSERVER:-192.168.1.7}
 COUNTRYSERVER=${COUNTRYSERVER:-ott.io.mi.com}
 TZ=${TZ:-Europe/Berlin}
 
+echo CLOUDSERVERIP=${CLOUDSERVERIP}
+echo MYSQLSERVER=${MYSQLSERVER}
+echo MYSQLDB=${MYSQLDB}
+echo MYSQLUSER=${MYSQLUSER}
+echo MYSQLPW=*****
+echo CMDSERVER_PORT=${CMDSERVER_PORT}
+echo CMDSERVER=${CMDSERVER}
+echo COUNTRYSERVER=${COUNTRYSERVER}
+echo TZ=${TZ}
+echo "==================="
+
+
 #################################################
 # IP adaptation to the docker internal IP for the commandserver
 cp /dustcloud/server.py.master /dustcloud/server.py
