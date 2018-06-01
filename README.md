@@ -5,13 +5,9 @@
 Docker container for https://github.com/dgiese/dustcloud
 
 ## Docker HUB information
-[![](https://images.microbadger.com/badges/version/jackgruber/dustcloud:latest.svg)](https://microbadger.com/images/jackgruber/dustcloud:latest "Get your own version badge on microbadger.com")
-[![](https://images.microbadger.com/badges/commit/jackgruber/dustcloud:latest.svg)](https://microbadger.com/images/jackgruber/dustcloud "Get your own commit badge on microbadger.com")
-
 [![](https://images.microbadger.com/badges/version/jackgruber/dustcloud:amd64.svg)](https://microbadger.com/images/jackgruber/dustcloud:amd64 "Get your own version badge on microbadger.com")
 [![](https://images.microbadger.com/badges/commit/jackgruber/dustcloud:amd64.svg)](https://microbadger.com/images/jackgruber/dustcloud:amd64 "Get your own commit badge on microbadger.com")
-[![](https://images.microbadger.com/badges/image/jackgruber/dustcloud:amd64.svg)](https://microbadger.com/images/jackgruber/dustcloud:amd64 "Get your own image badge on microbadger.com")
-
+[![](https://images.microbadger.com/badges/image/jackgruber/dustcloud:amd64.svg)](https://microbadger.com/images/jackgruber/dustcloud:amd64 "Get your own image badge on microbadger.com")   
 [![](https://images.microbadger.com/badges/version/jackgruber/dustcloud:armhf.svg)](https://microbadger.com/images/jackgruber/dustcloud:armhf "Get your own version badge on microbadger.com")
 [![](https://images.microbadger.com/badges/commit/jackgruber/dustcloud:armhf.svg)](https://microbadger.com/images/jackgruber/dustcloud:armhf "Get your own commit badge on microbadger.com")
 [![](https://images.microbadger.com/badges/image/jackgruber/dustcloud:armhf.svg)](https://microbadger.com/images/jackgruber/dustcloud:armhf "Get your own image badge on microbadger.com")
