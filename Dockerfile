@@ -51,7 +51,8 @@ RUN git clone --depth 1 https://github.com/dgiese/dustcloud.git $GITDIR \
 # Change vars in server.py.master
 RUN sed -i -e "s/pymysql.connect(\"localhost\", \"dustcloud\", \"\", \"dustcloud\")/pymysql.connect(\"{{MYSQLSERVER}}\",\"{{MYSQLUSER}}\",\"{{MYSQLPW}}\",\"{{MYSQLDB}}\")/g" $DUSTCLOUD/server.py.master \
     && sed -i -e "s/my_cloudserver_ip = \"10.0.0.1\"/my_cloudserver_ip = \"{{CLOUDSERVERIP}}\"/g" $DUSTCLOUD/server.py.master \
-    && sed -i -e "s/cmd_server.run(host=\"localhost\", port=cmd_server_port)/cmd_server.run(host=\"0.0.0.0\", port={{CMDSERVER_PORT}})/g" $DUSTCLOUD/server.py.master
+    && sed -i -e "s/cmd_server.run(host=\"localhost\", port=cmd_server_port)/cmd_server.run(host=\"0.0.0.0\", port={{CMDSERVER_PORT}})/g" $DUSTCLOUD/server.py.master \
+    && sed -i -e "s/cloud_server_address = ('ott.io.mi.com', 80)/cloud_server_address = ('{{CLOUD_SERVER_ADDRESS}}', 80)/g" $DUSTCLOUD/server.py.master
 
 # Customization for dustcloud database connection in php
 RUN sed -i -e "s/'host' => 'localhost',/'host' => '{{MYSQLSERVER}}',/g" $WWWDATA/conf.sample.php \
@@ -96,9 +97,8 @@ EXPOSE 1121/tcp
 
 CMD ["/bootstrap/start.sh"]
 
-
 # Build-time metadata as defined at http://label-schema.org
-ENV VERSION v1.3.1
+ENV VERSION v1.3.2
 ARG BUILD_DATE
 ARG VCS_REF
 ARG BRANCH
