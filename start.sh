@@ -9,6 +9,7 @@ MYSQLUSER=${MYSQLUSER:-dustcloud}
 MYSQLPW=${MYSQLPW:-dustcloudpw}
 CMDSERVER_PORT=${CMDSERVER_PORT:-1121}
 CMDSERVER=${CMDSERVER:-192.168.1.7}
+CLOUDHOST=${CLOUDHOST:-ott.io.mi.com}
 TZ=${TZ:-Europe/Berlin}
 
 #################################################
@@ -21,6 +22,7 @@ sed -i -e "s/{{MYSQLPW}}/${MYSQLPW}/g" $DUSTCLOUD/server.py
 sed -i -e "s/{{MYSQLDB}}/${MYSQLDB}/g" $DUSTCLOUD/server.py
 sed -i -e "s/{{CMDSERVER_PORT}}/${CMDSERVER_PORT}/g" $DUSTCLOUD/server.py
 sed -i -e "s/{{CLOUDSERVERIP}}/${CLOUDSERVERIP}/g" $DUSTCLOUD/server.py
+sed -i -e "s/{{CLOUD_SERVER_ADDRESS}}/${CLOUDHOST}/g" $DUSTCLOUD/server.py
 
 #################################################
 # IP adaptaion to the docker external IP for the dustcloud commandserver
