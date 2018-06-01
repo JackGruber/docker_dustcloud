@@ -98,7 +98,7 @@ EXPOSE 1121/tcp
 CMD ["/bootstrap/start.sh"]
 
 # Build-time metadata as defined at http://label-schema.org
-ENV VERSION v1.3.2
+ENV VERSION v1.3.3
 ARG BUILD_DATE
 ARG VCS_REF
 ARG BRANCH
