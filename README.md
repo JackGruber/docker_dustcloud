@@ -87,7 +87,7 @@ These options can be set via the environment variable -e flag:
 - **CMDSERVER**: Command Server IP or DNS Name (Default: 192.168.1.7, Values: \<IP addr> or \<DNS name>)
 - **CMDSERVER_PORT**: Port number for command server (Default: 1121, Values: \<1-65535>)
 - **TZ**: Set Timezone (Default: Europe/Berlin, Values: \<[TZ](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)>)
-- **COUNTYSERVER**: Set cloud_server_address in server.py (Default: ott.io.mi.com, Values: \<DNS name>)
+- **COUNTRYSERVER**: Set cloud_server_address in server.py (Default: ott.io.mi.com, Values: \<DNS name>)
 
 ## Build your own dustcloud image from Dockerfile
 
@@ -132,7 +132,7 @@ python-miio Commands https://python-miio.readthedocs.io/en/latest/vacuum.html
 
 ### 01.06.2018
 - Add composer support 
-- Add COUNTYSERVER (Cloud country server) option to change ```cloud_server_address``` in server.py 
+- Add COUNTRYSERVER (Cloud country server) option to change ```cloud_server_address``` in server.py 
 
 ### 12.05.2018
 - Change to ENV var configuration settings
