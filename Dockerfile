@@ -87,8 +87,6 @@ RUN mkdir /bootstrap
 ADD start.sh /bootstrap/
 RUN chmod +x /bootstrap/start.sh
 
-ENV VERSION v1.3.0
-
 WORKDIR $DUSTCLOUD
 
 EXPOSE 80/tcp
@@ -100,7 +98,7 @@ CMD ["/bootstrap/start.sh"]
 
 
 # Build-time metadata as defined at http://label-schema.org
-ENV VERSION v1.2.1
+ENV VERSION v1.3.1
 ARG BUILD_DATE
 ARG VCS_REF
 ARG BRANCH
