@@ -121,6 +121,9 @@ python-miio Commands https://python-miio.readthedocs.io/en/latest/vacuum.html
 
 ## Changelog
 
+### 01.06.2018
+- Add composer support 
+
 ### 12.05.2018
 - Change to ENV var configuration settings
 
