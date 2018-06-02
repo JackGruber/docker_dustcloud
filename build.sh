@@ -12,16 +12,19 @@ if [ "$1" = "manifest" ]; then
     $REPO:amd64
 
   docker manifest push $REPO:latest
+
+  docker manifest inspect $REPO
 else
   if [ "$1" = "test" ]; then
     ARCH="test"
   fi
 
-  docker build -t $REPO:$ARCH \
+  docker build -t $REPO \
   --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
   --build-arg VCS_REF=`git rev-parse --short HEAD` \
   --build-arg BRANCH=`git rev-parse --abbrev-ref HEAD` .
 
+  docker tag $REPO $REPO:$ARCH
 
   if [ "$1" = "push" ]; then
     docker rmi $REPO:test
