@@ -51,7 +51,6 @@ jackgruber/dustcloud
 
 ## Use with docker-compose (optional)
 Instead of creating each container one by one you can youse docker-compose.  
-Rename the `docker-compose.pi.yml` for Raspberry Pi or the `docker-compose.x64.yml` for x64 systems to ```docker-compose.yml```.  
 Change the CMDSERVER=`192.168.1.129` in the `docker-compose.yml` to your IP from the docker host.
 
 
@@ -124,6 +123,7 @@ dustcloud https://github.com/dgiese/dustcloud
 
 ### 28.10.2018
 - Add docker-compose
+- Change examples to multiarch images
 
 ### 01.06.2018
 - Add composer support 
