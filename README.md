@@ -25,15 +25,9 @@ You can use the dustcloud from Docker Hub or build your own from the Repro.
 
 **Run DB container (optional)**
 
-Raspberry Pi
 ```
 docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw \
 -e TZ=$(cat /etc/timezone) jackgruber/mariadb
-```
-
-x64
-```
-docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw mariadb
 ```
 
 **Run phpMyAdmin container (optional)**
