@@ -56,7 +56,7 @@ CREATE DATABASE IF NOT EXISTS `dustcloud`;
 GRANT ALL PRIVILEGES ON `dustcloud`.* TO 'dustcloud'@'%';
 ```
 
-Copy the content from the ```dustcloud.sql``` ans execute the SQL Querys in phpMyAdmin
+Copy the content from the ```dustcloud.sql``` and execute the SQL Querys in phpMyAdmin
 ```
 https://github.com/dgiese/dustcloud/blob/master/dustcloud/dustcloud.sql
 ```
