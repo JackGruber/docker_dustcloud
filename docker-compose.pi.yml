@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+  dustcloud:
+     image: jackgruber/dustcloud
+     ports:
+       - "80-81:80-81/tcp"
+       - "8053:8053/udp"
+       - "1121:1121/tcp"
+     volumes:
+       - /tmp/data:/dustcloud/data
+     environment:
+       - TZ=Europe/Berlin
+       - CMDSERVER=192.168.1.129
+     restart: always
+     depends_on:
+       - mariadb
+     networks:
+       - front
+       - back
+
+  mariadb:
+    image: jackgruber/mariadb
+    volumes:
+      - /opt/mariadb/dustcloud:/var/lib/mysql
+    environment:
+       - TZ=Europe/Berlin
+       - MYSQL_ROOT_PASSWORD=rootdustcloudpw
+    restart: always
+    networks:
+      back:
+        aliases:
+         - db
+
+  phpmyadmin:
+     image: jackgruber/phpmyadmin
+     ports:
+       - "8080:80/tcp"
+     depends_on:
+       - mariadb
+     networks:
+       - front
+       - back
+
+networks:
+  front:
+    driver: bridge
+
