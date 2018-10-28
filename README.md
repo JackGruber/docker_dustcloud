@@ -1,5 +1,4 @@
 
-
 # Docker containers for Xiaomi Mi Robot Vacuum dustcloud
 
 Docker container for https://github.com/dgiese/dustcloud
@@ -39,14 +38,8 @@ docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw ma
 
 **Run phpMyAdmin container (optional)**
 
-Raspberry Pi
 ```
 docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 jackgruber/phpmyadmin
-```
-
-x64
-```
-docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 phpmyadmin/phpmyadmin
 ```
 
 **Run dustcloud container**
@@ -128,12 +121,10 @@ docker exec dustcloud mirobo --ip=192.168.X.X --token=XXX
 3. The extracted maps are now in ```/tmp/data``` and can now be opened with FasteStone Image Viewer or IrfanView
 
 ## Links
-Raspberry Pi phpMyAdmin https://github.com/JackGruber/docker_rpi-phpmyadmin
-
-Raspberry Pi MariaDB https://github.com/JSurf/docker-rpi-mariadb 
-
-python-miio Commands https://python-miio.readthedocs.io/en/latest/vacuum.html
-
+phpMyAdmin https://github.com/JackGruber/docker_phpmyadmin  
+MariaDB https://github.com/bianjp/docker-mariadb-alpine  
+python-miio Commands https://python-miio.readthedocs.io/en/latest/vacuum.html  
+dustcloud https://github.com/dgiese/dustcloud 
 
 ## Changelog
 

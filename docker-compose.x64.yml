@@ -32,7 +32,7 @@ services:
          - db
 
   phpmyadmin:
-     image: phpmyadmin/phpmyadmin
+     image: jackgruber/phpmyadmin
      ports:
        - "8080:80/tcp"
      depends_on:
@@ -44,4 +44,5 @@ services:
 networks:
   front:
     driver: bridge
-
+  back:
+  
