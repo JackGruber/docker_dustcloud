@@ -1,5 +1,4 @@
 
-
 # Docker containers for Xiaomi Mi Robot Vacuum dustcloud
 
 Docker container for https://github.com/dgiese/dustcloud
@@ -21,47 +20,21 @@ Creates three docker containers for Raspberry Pi and Linux x64
 The phpmyadmin and the DB server are optionale, you can use your existings instances.
 You can use the dustcloud from Docker Hub or build your own from the Repro. 
 
+
 ## Docker preparations
 
 **Run DB container (optional)**
 
-Raspberry Pi
 ```
 docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw \
 -e TZ=$(cat /etc/timezone) jackgruber/mariadb
 ```
 
-x64
-```
-docker run --name dustcloud_mariadb -d -e MYSQL_ROOT_PASSWORD=rootdustcloudpw mariadb
-```
-
 **Run phpMyAdmin container (optional)**
 
-Raspberry Pi
 ```
 docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 jackgruber/phpmyadmin
 ```
-
-x64
-```
-docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 phpmyadmin/phpmyadmin
-```
-
-Login to phpMyAdmin ( http://YOURIP:8080 ) an execute
-```
-CREATE USER 'dustcloud'@'%' IDENTIFIED by 'dustcloudpw';
-GRANT USAGE ON *.* TO 'dustcloud'@'%';
-CREATE DATABASE IF NOT EXISTS `dustcloud`;
-GRANT ALL PRIVILEGES ON `dustcloud`.* TO 'dustcloud'@'%';
-```
-
-Copy the content from the ```dustcloud.sql``` ans execute the SQL Querys in phpMyAdmin
-```
-https://github.com/dgiese/dustcloud/blob/master/dustcloud/dustcloud.sql
-```
-
-## Docker dustcloud
 
 **Run dustcloud container**
 
@@ -74,6 +47,26 @@ docker run --name dustcloud -d --link dustcloud_mariadb:db \
 -e TZ=$(cat /etc/timezone) \
 -v /tmp/data:/dustcloud/data \
 jackgruber/dustcloud
+```
+
+## Use with docker-compose (optional)
+Instead of creating each container one by one you can youse docker-compose.  
+Change the CMDSERVER=`192.168.1.129` in the `docker-compose.yml` to your IP from the docker host.
+
+
+## Create database
+
+Login to phpMyAdmin ( http://YOURIP:8080 ) an execute
+```
+CREATE USER 'dustcloud'@'%' IDENTIFIED by 'dustcloudpw';
+GRANT USAGE ON *.* TO 'dustcloud'@'%';
+CREATE DATABASE IF NOT EXISTS `dustcloud`;
+GRANT ALL PRIVILEGES ON `dustcloud`.* TO 'dustcloud'@'%';
+```
+
+Copy the content from the ```dustcloud.sql``` ans execute the SQL Querys in phpMyAdmin
+```
+https://github.com/dgiese/dustcloud/blob/master/dustcloud/dustcloud.sql
 ```
 
 ## Configuration
@@ -121,14 +114,16 @@ docker exec dustcloud mirobo --ip=192.168.X.X --token=XXX
 3. The extracted maps are now in ```/tmp/data``` and can now be opened with FasteStone Image Viewer or IrfanView
 
 ## Links
-Raspberry Pi phpMyAdmin https://github.com/JackGruber/docker_rpi-phpmyadmin
-
-Raspberry Pi MariaDB https://github.com/JSurf/docker-rpi-mariadb 
-
-python-miio Commands https://python-miio.readthedocs.io/en/latest/vacuum.html
-
+phpMyAdmin https://github.com/JackGruber/docker_phpmyadmin  
+MariaDB https://github.com/bianjp/docker-mariadb-alpine  
+python-miio Commands https://python-miio.readthedocs.io/en/latest/vacuum.html  
+dustcloud https://github.com/dgiese/dustcloud 
 
 ## Changelog
+
+### 28.10.2018
+- Add docker-compose
+- Change examples to multiarch images
 
 ### 01.06.2018
 - Add composer support 
@@ -143,3 +138,4 @@ python-miio Commands https://python-miio.readthedocs.io/en/latest/vacuum.html
 ### 02.04.2018
 - Changed to alpine as base image, so there is only one docker file for Raspberry Pi and x64. 
 - Also the size has been reduced from 592MB to 180MB for the docker image
+
