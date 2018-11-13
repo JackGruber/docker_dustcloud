@@ -25,6 +25,7 @@ RUN apk update \
     py-pip \
     python3 \
     tzdata \
+    && pip3 install --upgrade pip \
     && pip3 install python-miio \
     pymysql \
     && apk del .build-deps \

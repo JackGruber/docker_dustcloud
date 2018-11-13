@@ -121,6 +121,9 @@ dustcloud https://github.com/dgiese/dustcloud
 
 ## Changelog
 
+### 18.11.2018
+- Update pip 
+
 ### 28.10.2018
 - Add docker-compose
 - Change examples to multiarch images
