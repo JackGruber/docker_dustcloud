@@ -48,8 +48,7 @@ jackgruber/dustcloud
 
 ## Use with docker-compose (optional)
 Instead of creating each container one by one you can youse docker-compose.  
-Change the CMDSERVER=`192.168.1.129` in the `docker-compose.yml` to your IP from the docker host.
-
+Change/Add the environment variables in the `docker-compose.yml` according to your needs.
 
 ## Create database
 
