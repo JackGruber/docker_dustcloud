@@ -38,8 +38,6 @@ docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 jackgr
 
 **Run dustcloud container**
 
-change the CMDSERVER=`192.168.1.129` to your IP from the docker host
-
 ```
 docker run --name dustcloud -d --link dustcloud_mariadb:db \
 -p 80-81:80-81/tcp -p 8053:8053/udp \
