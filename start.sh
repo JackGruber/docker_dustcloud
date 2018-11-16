@@ -28,9 +28,9 @@ echo "==================="
 
 
 #################################################
-# IP adaptation to the docker internal IP for the commandserver
+# dustcloud server settings
 cp $DUSTCLOUD/server.py.master $DUSTCLOUD/server.py
-sed -i -e "s/cmd_server.run(host=\"localhost\", port=cmd_server_port)/cmd_server.run(host=\"${CMD_SERVERIP}\", port=cmd_server_port)/g" $DUSTCLOUD/server.py
+sed -i -e "s/{{CMDSERVER_PORT}}/${CMDSERVER_PORT}/g" $DUSTCLOUD/server.py
 sed -i -e "s/{{CLOUD_SERVER_ADDRESS}}/${COUNTRYSERVER}/g" $DUSTCLOUD/server.py
 
 #################################################
