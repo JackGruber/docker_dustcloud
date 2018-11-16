@@ -25,6 +25,7 @@ RUN apk update \
     py-pip \
     python3 \
     tzdata \
+    && pip3 install --upgrade pip \
     && pip3 install python-miio \
     pymysql \
     && apk del .build-deps \
@@ -98,7 +99,7 @@ EXPOSE 1121/tcp
 CMD ["/bootstrap/start.sh"]
 
 # Build-time metadata as defined at http://label-schema.org
-ENV VERSION v1.3.3
+ENV VERSION v1.3.4
 ARG BUILD_DATE
 ARG VCS_REF
 ARG BRANCH
