@@ -106,7 +106,8 @@ docker exec dustcloud mirobo --ip=192.168.X.X --token=XXX
 1. Download [upload_maps.sh](https://github.com/dgiese/dustcloud/blob/master/dustcloud/upload_map.sh) 
 2. Edit upload_map.sh and change DUSTCLOUD_SERVER=`192.168.xx.yy` to your dustcloud Server IP
 3. Upload upload_map.sh to your Xiaomi
-4. Start the upload with `watch -n5 ./upload_map.sh`
+4. Make file executable `chmod +x upload_map.sh`
+5. Start the upload with `watch -n5 ./upload_map.sh`
 
 ## Extract cleaning maps
 1. Copy the robot.db from you Xiaomi ```/mnt/data/rockrobo/robot.db``` to ```/tmp/data```
