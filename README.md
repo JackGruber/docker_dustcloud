@@ -78,6 +78,7 @@ These options can be set via the environment variable -e flag:
 - **CMDSERVER_PORT**: Port number for command server (Default: 1121, Values: \<1-65535>)
 - **TZ**: Set Timezone (Default: Europe/Berlin, Values: \<[TZ](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)>)
 - **COUNTRYSERVER**: Set cloud_server_address in server.py (Default: ott.io.mi.com, Values: \<DNS name>)
+- **DEBUG**: (Default: false, Values: \<true|false>)
 
 ## Build your own dustcloud image from Dockerfile
 
@@ -119,7 +120,10 @@ dustcloud https://github.com/dgiese/dustcloud
 
 ## Changelog
 
-### 18.11.2018
+### xx.xx.xx
+- Update for giese/dustcloud [new frontend UI #136](https://github.com/dgiese/dustcloud/pull/136)
+
+### 13.11.2018
 - Update pip 
 
 ### 28.10.2018
