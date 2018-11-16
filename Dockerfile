@@ -15,10 +15,12 @@ RUN apk update \
     openssl-dev \
     php7 \
     php7-apache2 \
+    php7-curl \
     php7-mysqli \
     php7-mbstring \
     php7-phar \
     php7-json \
+    php7-zip \
     py-bottle \
     py-mysqldb \
     py-pillow \
@@ -77,7 +79,8 @@ RUN mkdir /run/apache2 && \
     sed -i -e "s@/var/www/localhost/htdocs@$WWWDATA/public@g" /etc/apache2/httpd.conf && \
     sed -i -e "s/error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT/error_reporting = E_ALL/g" /etc/php7/php.ini && \
     sed -i -e "s/display_errors = Off/display_errors = On/g" /etc/php7/php.ini && \
-    sed -i -e "s@;date.timezone =@date.timezone = \"{{TZ}}\"@g" /etc/php7/php.ini
+    sed -i -e "s@;date.timezone =@date.timezone = \"{{TZ}}\"@g" /etc/php7/php.ini && \
+    sed -i -e "s/;extension=curl/extension=curl/g" /etc/php7/php.ini
 
 # allow python to bind ports < 1024
 RUN setcap CAP_NET_BIND_SERVICE=+eip /usr/bin/python3.6
