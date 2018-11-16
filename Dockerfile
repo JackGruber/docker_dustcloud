@@ -96,8 +96,9 @@ RUN chmod +x /bootstrap/start.sh
 
 ###########################################################################
 # change permission
-RUN chgrp -R apache $WWWDATA && \
-    chown -R apache $WWWDATA
+RUN chgrp -R apache $DUSTCLOUD && \
+    chown -R apache $DUSTCLOUD
+
 
 WORKDIR $DUSTCLOUD
 
