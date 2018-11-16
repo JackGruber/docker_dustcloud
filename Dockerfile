@@ -62,7 +62,8 @@ RUN sed -i -e "s/ip = 10.0.0.1/ip = {{CLOUDSERVERIP}}/g" $DUSTCLOUD/config.maste
     sed -i -e "s/database = dustcloud/database = {{MYSQLDB}}/g" $DUSTCLOUD/config.master.ini && \
     sed -i -e "s/username = dustcloud/username = {{MYSQLUSER}}/g" $DUSTCLOUD/config.master.ini && \
     sed -i -e "s/password = dustcloud/password = {{MYSQLPW}}/g" $DUSTCLOUD/config.master.ini && \
-    sed -i -e "s@cmd.server = http://localhost:1121/@cmd.server = http://{{CMDSERVER}}:{{CMDSERVER_PORT}}/@g" $DUSTCLOUD/config.master.ini
+    sed -i -e "s@cmd.server = http://localhost:1121/@cmd.server = http://{{CMDSERVER}}:{{CMDSERVER_PORT}}/@g" $DUSTCLOUD/config.master.ini && \
+    sed -i -e "s/debug = true/debug = {{DEBUG}}/g" $DUSTCLOUD/config.master.ini
 
 ###########################################################################
 # Install composer

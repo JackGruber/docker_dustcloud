@@ -11,6 +11,8 @@ CMDSERVER_PORT=${CMDSERVER_PORT:-1121}
 CMDSERVER=${CMDSERVER:-192.168.1.7}
 COUNTRYSERVER=${COUNTRYSERVER:-ott.io.mi.com}
 TZ=${TZ:-Europe/Berlin}
+DEBUG=${DEBUG:-false}
+
 
 echo CLOUDSERVERIP=${CLOUDSERVERIP}
 echo MYSQLSERVER=${MYSQLSERVER}
@@ -21,6 +23,7 @@ echo CMDSERVER_PORT=${CMDSERVER_PORT}
 echo CMDSERVER=${CMDSERVER}
 echo COUNTRYSERVER=${COUNTRYSERVER}
 echo TZ=${TZ}
+echo DEBUG=${DEBUG}
 echo "==================="
 
 
@@ -40,6 +43,7 @@ sed -i -e "s/{{MYSQLPW}}/${MYSQLPW}/g" $DUSTCLOUD/config.ini
 sed -i -e "s/{{MYSQLDB}}/${MYSQLDB}/g" $DUSTCLOUD/config.ini
 sed -i -e "s/{{CMDSERVER}}/${CMDSERVER}/g" $DUSTCLOUD/config.ini
 sed -i -e "s/{{CMDSERVER_PORT}}/${CMDSERVER_PORT}/g" $DUSTCLOUD/config.ini
+sed -i -e "s/{{DEBUG}}/${DEBUG}/g" $DUSTCLOUD/config.ini
 
 
 # Timezone
