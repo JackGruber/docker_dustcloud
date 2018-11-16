@@ -48,7 +48,7 @@ RUN git clone --depth 1 https://github.com/tsia/dustcloud.git $GITDIR && \
     cp $GITDIR/dustcloud/config.sample.ini $DUSTCLOUD/config.master.ini && \
     echo 'su -c "python3 $DUSTCLOUD/server.py --enable-live-map" -s /bin/sh - apache' > $DUSTCLOUD/server.sh && \
     chmod +x $DUSTCLOUD/server.sh && \
-    echo "<?php phpinfo(); ?>" > $WWWDATA/info.php && \
+    echo "<?php phpinfo(); ?>" > $WWWDATA/public/info.php && \
     rm -rf $GITDIR
 
 # Change vars in server.py.master
