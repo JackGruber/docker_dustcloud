@@ -40,7 +40,7 @@ ENV DUSTCLOUD /opt/dustcloud
 ENV WWWDATA $DUSTCLOUD/www
 ENV GITDIR /gitdata
 RUN git clone --depth 1 https://github.com/dgiese/dustcloud.git $GITDIR && \
-    cd /gitdata && git fetch origin pull/136/head:test && git checkout test && \
+    cd /gitdata && \
     mkdir -p $DUSTCLOUD && \
     cp -r $GITDIR/dustcloud/www $DUSTCLOUD && \
     cp $GITDIR/devices/xiaomi.vacuum.gen1/mapextractor/extractor.py $DUSTCLOUD/map_extractor.py && \
