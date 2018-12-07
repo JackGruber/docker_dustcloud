@@ -119,7 +119,7 @@ dustcloud https://github.com/dgiese/dustcloud
 
 ## Changelog
 
-### xx.xx.xx
+### 07.12.2018
 - Update for giese/dustcloud [new frontend UI #136](https://github.com/dgiese/dustcloud/pull/136)
 
 ### 13.11.2018
