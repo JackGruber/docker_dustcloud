@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   dustcloud:
-     image: dustcloud:test
+     image: dustcloud
      ports:
        - "80-81:80-81/tcp"
        - "8053:8053/udp"
