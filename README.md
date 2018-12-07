@@ -38,12 +38,9 @@ docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 jackgr
 
 **Run dustcloud container**
 
-change the CMDSERVER=`192.168.1.129` to your IP from the docker host
-
 ```
 docker run --name dustcloud -d --link dustcloud_mariadb:db \
--p 80-81:80-81/tcp -p 8053:8053/udp -p 1121:1121/tcp \
--e CMDSERVER=192.168.1.129 \
+-p 80-81:80-81/tcp -p 8053:8053/udp \
 -e TZ=$(cat /etc/timezone) \
 -v /tmp/data:/dustcloud/data \
 jackgruber/dustcloud
@@ -51,8 +48,7 @@ jackgruber/dustcloud
 
 ## Use with docker-compose (optional)
 Instead of creating each container one by one you can youse docker-compose.  
-Change the CMDSERVER=`192.168.1.129` in the `docker-compose.yml` to your IP from the docker host.
-
+Change/Add the environment variables in the `docker-compose.yml` according to your needs.
 
 ## Create database
 
@@ -81,6 +77,7 @@ These options can be set via the environment variable -e flag:
 - **CMDSERVER_PORT**: Port number for command server (Default: 1121, Values: \<1-65535>)
 - **TZ**: Set Timezone (Default: Europe/Berlin, Values: \<[TZ](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)>)
 - **COUNTRYSERVER**: Set cloud_server_address in server.py (Default: ott.io.mi.com, Values: \<DNS name>)
+- **DEBUG**: (Default: false, Values: \<true|false>)
 
 ## Build your own dustcloud image from Dockerfile
 
@@ -122,7 +119,10 @@ dustcloud https://github.com/dgiese/dustcloud
 
 ## Changelog
 
-### 18.11.2018
+### 07.12.2018
+- Update for giese/dustcloud [new frontend UI #136](https://github.com/dgiese/dustcloud/pull/136)
+
+### 13.11.2018
 - Update pip 
 
 ### 28.10.2018
