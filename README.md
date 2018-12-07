@@ -42,7 +42,7 @@ docker run --name dustcloud_pma -d --link dustcloud_mariadb:db -p 8080:80 jackgr
 docker run --name dustcloud -d --link dustcloud_mariadb:db \
 -p 80-81:80-81/tcp -p 8053:8053/udp \
 -e TZ=$(cat /etc/timezone) \
--v /tmp/data:/dustcloud/data \
+-v /tmp/data:/opt/dustcloud/data \
 jackgruber/dustcloud
 ```
 
@@ -108,7 +108,7 @@ docker exec dustcloud mirobo --ip=192.168.X.X --token=XXX
 
 ## Extract cleaning maps
 1. Copy the robot.db from you Xiaomi ```/mnt/data/rockrobo/robot.db``` to ```/tmp/data```
-2. Run ```docker exec dustcloud python3 /dustcloud/map_extractor.py -f /dustcloud/data/robot.db -o /dustcloud/data -c```
+2. Run ```docker exec dustcloud python3 /opt/dustcloud/map_extractor.py -f /opt/dustcloud/data/robot.db -o /opt/dustcloud/data -c```
 3. The extracted maps are now in ```/tmp/data``` and can now be opened with FasteStone Image Viewer or IrfanView
 
 ## Links
