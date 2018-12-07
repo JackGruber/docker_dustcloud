@@ -1,16 +1,18 @@
-version: '3.7'
+version: '2.0'
+
 services:
   dustcloud:
-     image: jackgruber/dustcloud
+     image: dustcloud
      ports:
        - "80-81:80-81/tcp"
        - "8053:8053/udp"
        - "1121:1121/tcp"
      volumes:
-       - /tmp/data:/dustcloud/data
+       - /tmp/data:/opt/dustcloud
      environment:
        - TZ=Europe/Berlin
-       - CMDSERVER=192.168.1.129
+       - CMDSERVER=localhost
+       - DEBUG=true
      restart: always
      depends_on:
        - mariadb

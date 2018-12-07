@@ -11,6 +11,8 @@ CMDSERVER_PORT=${CMDSERVER_PORT:-1121}
 CMDSERVER=${CMDSERVER:-192.168.1.7}
 COUNTRYSERVER=${COUNTRYSERVER:-ott.io.mi.com}
 TZ=${TZ:-Europe/Berlin}
+DEBUG=${DEBUG:-false}
+
 
 echo CLOUDSERVERIP=${CLOUDSERVERIP}
 echo MYSQLSERVER=${MYSQLSERVER}
@@ -21,30 +23,28 @@ echo CMDSERVER_PORT=${CMDSERVER_PORT}
 echo CMDSERVER=${CMDSERVER}
 echo COUNTRYSERVER=${COUNTRYSERVER}
 echo TZ=${TZ}
+echo DEBUG=${DEBUG}
 echo "==================="
 
 
 #################################################
-# IP adaptation to the docker internal IP for the commandserver
-cp /dustcloud/server.py.master /dustcloud/server.py
-sed -i -e "s/cmd_server.run(host=\"localhost\", port=cmd_server_port)/cmd_server.run(host=\"${CMD_SERVERIP}\", port=cmd_server_port)/g" /dustcloud/server.py
-sed -i -e "s/{{MYSQLSERVER}}/${MYSQLSERVER}/g" $DUSTCLOUD/server.py
-sed -i -e "s/{{MYSQLUSER}}/${MYSQLUSER}/g" $DUSTCLOUD/server.py
-sed -i -e "s/{{MYSQLPW}}/${MYSQLPW}/g" $DUSTCLOUD/server.py
-sed -i -e "s/{{MYSQLDB}}/${MYSQLDB}/g" $DUSTCLOUD/server.py
+# dustcloud server settings
+cp $DUSTCLOUD/server.py.master $DUSTCLOUD/server.py
 sed -i -e "s/{{CMDSERVER_PORT}}/${CMDSERVER_PORT}/g" $DUSTCLOUD/server.py
-sed -i -e "s/{{CLOUDSERVERIP}}/${CLOUDSERVERIP}/g" $DUSTCLOUD/server.py
 sed -i -e "s/{{CLOUD_SERVER_ADDRESS}}/${COUNTRYSERVER}/g" $DUSTCLOUD/server.py
 
 #################################################
-# IP adaptaion to the docker external IP for the dustcloud commandserver
-cp ${WWWDATA}/conf.sample.php ${WWWDATA}/conf.php
-sed -i -e "s/{{MYSQLSERVER}}/${MYSQLSERVER}/g" $WWWDATA/conf.php
-sed -i -e "s/{{MYSQLUSER}}/${MYSQLUSER}/g" $WWWDATA/conf.php
-sed -i -e "s/{{MYSQLPW}}/${MYSQLPW}/g" $WWWDATA/conf.php
-sed -i -e "s/{{MYSQLDB}}/${MYSQLDB}/g" $WWWDATA/conf.php
-sed -i -e "s/{{CMDSERVER}}/${CMDSERVER}/g" $WWWDATA/conf.php
-sed -i -e "s/{{CMDSERVER_PORT}}/${CMDSERVER_PORT}/g" $WWWDATA/conf.php
+# dustcloud config adaptaion
+cp ${DUSTCLOUD}/config.master.ini ${DUSTCLOUD}/config.ini
+sed -i -e "s/{{CLOUDSERVERIP}}/${CLOUDSERVERIP}/g" $DUSTCLOUD/config.ini
+sed -i -e "s/{{MYSQLSERVER}}/${MYSQLSERVER}/g" $DUSTCLOUD/config.ini
+sed -i -e "s/{{MYSQLUSER}}/${MYSQLUSER}/g" $DUSTCLOUD/config.ini
+sed -i -e "s/{{MYSQLPW}}/${MYSQLPW}/g" $DUSTCLOUD/config.ini
+sed -i -e "s/{{MYSQLDB}}/${MYSQLDB}/g" $DUSTCLOUD/config.ini
+sed -i -e "s/{{CMDSERVER}}/${CMDSERVER}/g" $DUSTCLOUD/config.ini
+sed -i -e "s/{{CMDSERVER_PORT}}/${CMDSERVER_PORT}/g" $DUSTCLOUD/config.ini
+sed -i -e "s/{{DEBUG}}/${DEBUG}/g" $DUSTCLOUD/config.ini
+
 
 # Timezone
 sed -i -e "s@{{TZ}}@${TZ}@g" /etc/php7/php.ini
@@ -59,4 +59,4 @@ echo "Starting apache..."
 httpd -S
 httpd -k start
 echo "Starting Dustcloud..."
-/dustcloud/server.sh
+/opt/dustcloud/server.sh
