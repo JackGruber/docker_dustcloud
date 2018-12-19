@@ -119,6 +119,9 @@ dustcloud https://github.com/dgiese/dustcloud
 
 ## Changelog
 
+### 19.12.208
+- File docker-compose.yml updated, now the dock-hub image is used and the path for the data directory has been corrected 
+
 ### 07.12.2018
 - Update for giese/dustcloud [new frontend UI #136](https://github.com/dgiese/dustcloud/pull/136)
 
