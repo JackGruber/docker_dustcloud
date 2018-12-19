@@ -2,13 +2,14 @@ version: '2.0'
 
 services:
   dustcloud:
-     image: dustcloud
+     #build: .
+     image: jackgruber/dustcloud
      ports:
        - "80-81:80-81/tcp"
        - "8053:8053/udp"
        - "1121:1121/tcp"
      volumes:
-       - /tmp/data:/opt/dustcloud
+       - /tmp/data:/opt/dustcloud/data
      environment:
        - TZ=Europe/Berlin
        - CMDSERVER=localhost
